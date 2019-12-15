@@ -1,0 +1,81 @@
+     1: #include<pic.h>   //加载头文件；
+     2: //__CONFIG(FOSC_XT&WDTE_ON&WDTE_OFF&LVP_ON&LVP_OFF); //设置配置字；
+     3: #define uint8 unsigned char
+     4: void Delay10us(unsigned int delay);   //声明延时函数；
+     5: 
+     6: int n=0;                // 返回脉冲记录
+     7: unsigned char i=0;
+     8: void main()                   //主函数；
+     9: {
+    10:         ADCON1=(ADCON1&0xf0)|0x07;  //设置ADCON1低四位为0111，
+    11:                                      //将A口或E口作为普通I/O口使用；
+    12:         TRISA1 = 0
+    13:         RA = 1;
+    14: 
+    15:         // 触发信号
+    16:         TRISC1=0;
+    17:         RC1 = 0;
+    18: 
+    19:         // 输入捕获
+    20:         TRISC2=1; 
+    21:         CCP1CON = 0b00000101;
+    22:         CCPR1L = 0;
+    23:         CCPR1H = 0;
+    24: 
+    25:         
+    26:         
+    27:         // 中断
+    28:         GIE=1;
+    29:         PEIE=1;
+    30:         CCP1E=0;
+    31:         CCP1F=0;
+    32:         
+    33:         // DEBUG
+    34:         TRISD = 0x00;
+    35:         PORTD = 0x00;
+    36: 
+    37: 
+    38:         while(1){
+    39:                 RC1 = 1;
+    40:                 Delay10us(1);
+    41:                 RC1 = 0;
+    42:      
+    43:                 for (i=0; i<20; i++) {
+    44:                         if (CCP1F) {
+    45:                                 if (n==8) {
+    46:                                         n = 0;
+    47:                                         get_dist();
+    48:                                         break;
+    49:                                 }
+    50:                                 else {
+    51:                                         n += 1;
+    52:                                 }
+    53:                                 CCP1F = 0;
+    54:                         }
+    55:                         Delay10us(1);
+    56:                 }
+    57:                 
+    58:               //定义无符号变量i，i=0；
+    59:             for(i=0; i<8; i++) {
+    60:                 PORTD=(0x01<<i);   //将PORTD的第i位设置为高电平
+    61:                 Delay(3000);       //设置延时参数为3000
+    62:              }
+    63:         } 
+    64: }
+    65: 
+    66: void interrupt PIC_Int(void) {
+    67: uint8 i;                     //定义变量i
+    68:         if (INTF){
+    69:                 
+    70: 
+    71:         }
+    72: }
+    73: 
+    74: void Delay10us (unsigned int delay)     //定义延时函数Delay
+    75: {
+    76:  unsigned int i;                //定义无符号整型变量i
+    77:   for (;delay>0; delay--)       // for循环语句，delay>0时自减1，否则跳出循环
+    78:     for (i=0; i<5; i++);         // for循环语句，i<10时自加1，否则跳出循环
+    79: 
+    80: }
+    81: 

@@ -1,0 +1,1901 @@
+
+
+HI-TECH Software PIC PRO Macro Assembler V9.83 build 10920 
+                                                                                               Fri Dec 12 17:41:02 2014
+
+HI-TECH Software Omniscient Code Generator (PRO mode) build 10920
+     1                           	processor	16F877A
+     2                           	opt	pw 120
+     3                           	opt	pm
+     4                           	psect	text257,local,class=CODE,delta=2
+     5                           	psect	cinit,global,class=CODE,delta=2
+     6                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1
+     7                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
+     8                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
+     9                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1
+    10                           	psect	maintext,global,class=CODE,delta=2
+    11                           	psect	text258,local,class=CODE,delta=2
+    12                           	psect	text262,local,class=CODE,delta=2
+    13                           	psect	text264,local,class=CODE,delta=2
+    14                           	psect	text267,local,class=CODE,delta=2
+    15                           	psect	text268,local,class=CODE,delta=2
+    16                           	psect	text269,local,class=CODE,delta=2
+    17                           	psect	text270,local,class=CODE,delta=2
+    18                           	psect	pa_nodes,global,class=CODE,delta=2
+    19                           	dabs	1,0x7E,2
+    20  000A                     
+    21                           	psect	text257
+    22  0000                     __ptext257:	
+    23  0017                     _CCP1CON	set	23
+    24  0016                     _CCPR1H	set	22
+    25  0015                     _CCPR1L	set	21
+    26  0001                     _TMR0	set	1
+    27  0062                     _CCP1IF	set	98
+    28  0039                     _RC1	set	57
+    29  003C                     _RC4	set	60
+    30  003D                     _RC5	set	61
+    31  003E                     _RC6	set	62
+    32  003F                     _RC7	set	63
+    33  0047                     _RD7	set	71
+    34  005A                     _T0IF	set	90
+    35  0081                     _OPTION_REG	set	129
+    36  0439                     _TRISC1	set	1081
+    37  043A                     _TRISC2	set	1082
+    38  043C                     _TRISC4	set	1084
+    39  043D                     _TRISC5	set	1085
+    40  043E                     _TRISC6	set	1086
+    41  043F                     _TRISC7	set	1087
+    42  0447                     _TRISD7	set	1095
+    43                           
+    44                           	psect	cinit
+    45  054A                     start_initialization:	
+    46                           
+    47                           ; Clear objects allocated to COMMON
+    48  054A  01FC               	clrf	__pbssCOMMON& (0+127)
+    49  054B  01FD               	clrf	(__pbssCOMMON+1)& (0+127)
+    50                           
+    51                           ; Clear objects allocated to BANK0
+    52  054C  01BB               	clrf	__pbssBANK0& (0+127)
+    53  054D  01BC               	clrf	(__pbssBANK0+1)& (0+127)
+    54  054E  01BD               	clrf	(__pbssBANK0+2)& (0+127)
+    55  054F  01BE               	clrf	(__pbssBANK0+3)& (0+127)
+    56  0550  01BF               	clrf	(__pbssBANK0+4)& (0+127)
+    57  0551  01C0               	clrf	(__pbssBANK0+5)& (0+127)
+    58  0552  01C1               	clrf	(__pbssBANK0+6)& (0+127)
+    59  0553  01C2               	clrf	(__pbssBANK0+7)& (0+127)
+    60  0554                     end_of_initialization:	
+    61                           ;End of C runtime variable initialization code
+    62                           
+    63  0554  0183               	clrf	3
+    64  0555  120A  118A  2F1A   	ljmp	_main	;jump to C main() function
+    65                           
+    66                           	psect	bssCOMMON
+    67  007C                     __pbssCOMMON:	
+    68  007C                     _i:	
+    69  007C                     	ds	2
+    70                           
+    71                           	psect	bssBANK0
+    72  003B                     __pbssBANK0:	
+    73  003B                     _road_pass:	
+    74  003B                     	ds	2
+    75  003D                     _s:	
+    76  003D                     	ds	2
+    77  003F                     _status:	
+    78  003F                     	ds	2
+    79  0041                     _t:	
+    80  0041                     	ds	2
+    81                           
+    82                           	psect	cstackCOMMON
+    83  0070                     __pcstackCOMMON:	
+    84  0070                     ?_init:	
+    85  0070                     ??_init:	
+    86                           ; 0 bytes @ 0x0
+    87                           
+    88  0070                     ?_delay_10us:	
+    89                           ; 0 bytes @ 0x0
+    90                           
+    91  0070                     ?_motion_Forward:	
+    92                           ; 0 bytes @ 0x0
+    93                           
+    94  0070                     ?_motion_Stop:	
+    95                           ; 0 bytes @ 0x0
+    96                           
+    97  0070                     ??_motion_Stop:	
+    98                           ; 0 bytes @ 0x0
+    99                           
+   100  0070                     ?_delay_1ms:	
+   101                           ; 0 bytes @ 0x0
+   102                           
+   103  0070                     ?_main:	
+   104                           ; 0 bytes @ 0x0
+   105                           
+   106  0070                     ?___ftpack:	
+   107                           ; 0 bytes @ 0x0
+   108                           
+   109  0070                     delay_10us@n:	
+   110                           ; 3 bytes @ 0x0
+   111                           
+   112  0070                     delay_1ms@n:	
+   113                           ; 2 bytes @ 0x0
+   114                           
+   115  0070                     ___ftpack@arg:	
+   116                           ; 2 bytes @ 0x0
+   117                           
+   118                           
+   119                           ; 3 bytes @ 0x0
+   120  0070                     	ds	2
+   121  0072                     ??_delay_10us:	
+   122  0072                     ??_motion_Forward:	
+   123                           ; 0 bytes @ 0x2
+   124                           
+   125  0072                     ??_delay_1ms:	
+   126                           ; 0 bytes @ 0x2
+   127                           
+   128  0072                     ?_motion_Backward:	
+   129                           ; 0 bytes @ 0x2
+   130                           
+   131  0072                     ?_motion_LeftTurn:	
+   132                           ; 0 bytes @ 0x2
+   133                           
+   134  0072                     ?_motion_RightTurn:	
+   135                           ; 0 bytes @ 0x2
+   136                           
+   137  0072                     motion_Backward@tt:	
+   138                           ; 0 bytes @ 0x2
+   139                           
+   140  0072                     motion_LeftTurn@angle:	
+   141                           ; 2 bytes @ 0x2
+   142                           
+   143  0072                     motion_RightTurn@angle:	
+   144                           ; 2 bytes @ 0x2
+   145                           
+   146                           
+   147                           ; 2 bytes @ 0x2
+   148  0072                     	ds	1
+   149  0073                     ___ftpack@exp:	
+   150                           
+   151                           ; 1 bytes @ 0x3
+   152  0073                     	ds	1
+   153  0074                     ??_motion_Backward:	
+   154  0074                     ??_motion_LeftTurn:	
+   155                           ; 0 bytes @ 0x4
+   156                           
+   157  0074                     ??_motion_RightTurn:	
+   158                           ; 0 bytes @ 0x4
+   159                           
+   160  0074                     ___ftpack@sign:	
+   161                           ; 0 bytes @ 0x4
+   162                           
+   163                           
+   164                           ; 1 bytes @ 0x4
+   165  0074                     	ds	1
+   166  0075                     ??___ftpack:	
+   167                           
+   168                           ; 0 bytes @ 0x5
+   169  0075                     	ds	3
+   170  0078                     ?___fttol:	
+   171  0078                     ___fttol@f1:	
+   172                           ; 4 bytes @ 0x8
+   173                           
+   174                           
+   175                           ; 3 bytes @ 0x8
+   176  0078                     	ds	4
+   177  007C                     ??_main:	
+   178  007C                     ??___lwtoft:	
+   179                           ; 0 bytes @ 0xC
+   180                           
+   181                           
+   182                           	psect	cstackBANK0
+   183  0020                     __pcstackBANK0:	
+   184                           ; 0 bytes @ 0xC
+   185                           
+   186  0020                     ??___fttol:	
+   187                           
+   188                           ; 0 bytes @ 0x0
+   189  0020                     	ds	3
+   190  0023                     ___fttol@sign1:	
+   191                           
+   192                           ; 1 bytes @ 0x3
+   193  0023                     	ds	1
+   194  0024                     ___fttol@lval:	
+   195                           
+   196                           ; 4 bytes @ 0x4
+   197  0024                     	ds	4
+   198  0028                     ___fttol@exp1:	
+   199                           
+   200                           ; 1 bytes @ 0x8
+   201  0028                     	ds	1
+   202  0029                     ?___lwtoft:	
+   203  0029                     ___lwtoft@c:	
+   204                           ; 3 bytes @ 0x9
+   205                           
+   206                           
+   207                           ; 2 bytes @ 0x9
+   208  0029                     	ds	3
+   209  002C                     ?___ftmul:	
+   210  002C                     ___ftmul@f1:	
+   211                           ; 3 bytes @ 0xC
+   212                           
+   213                           
+   214                           ; 3 bytes @ 0xC
+   215  002C                     	ds	3
+   216  002F                     ___ftmul@f2:	
+   217                           
+   218                           ; 3 bytes @ 0xF
+   219  002F                     	ds	3
+   220  0032                     ??___ftmul:	
+   221                           
+   222                           ; 0 bytes @ 0x12
+   223  0032                     	ds	3
+   224  0035                     ___ftmul@exp:	
+   225                           
+   226                           ; 1 bytes @ 0x15
+   227  0035                     	ds	1
+   228  0036                     ___ftmul@f3_as_product:	
+   229                           
+   230                           ; 3 bytes @ 0x16
+   231  0036                     	ds	3
+   232  0039                     ___ftmul@cntr:	
+   233                           
+   234                           ; 1 bytes @ 0x19
+   235  0039                     	ds	1
+   236  003A                     ___ftmul@sign:	
+   237                           
+   238                           ; 1 bytes @ 0x1A
+   239  003A                     	ds	1
+   240                           
+   241                           	psect	maintext
+   242  071A                     __pmaintext:	
+   243 ;;Data sizes: Strings 0, constant 0, data 0, bss 10, persistent 0 stack 0
+   244 ;;Auto spaces:   Size  Autos    Used
+   245 ;; COMMON          14     12      14
+   246 ;; BANK0           80     27      35
+   247 ;; BANK1           80      0       0
+   248 ;; BANK3           96      0       0
+   249 ;; BANK2           96      0       0
+   250 ;;
+   251 ;; Pointer list with targets:
+   252 ;; ?___ftpack	float  size(1) Largest target is 0
+   253 ;;
+   254 ;; ?___fttol	long  size(1) Largest target is 0
+   255 ;;
+   256 ;; ?___ftmul	float  size(1) Largest target is 0
+   257 ;;
+   258 ;; ?___lwtoft	float  size(1) Largest target is 0
+   259 ;;
+   260 ;;
+   261 ;; Critical Paths under _main in COMMON
+   262 ;;
+   263 ;;   _main->___fttol
+   264 ;;   ___lwtoft->___fttol
+   265 ;;   ___ftmul->___fttol
+   266 ;;   _motion_RightTurn->_delay_1ms
+   267 ;;   _motion_LeftTurn->_delay_1ms
+   268 ;;   _motion_Backward->_delay_1ms
+   269 ;;   _motion_Forward->_delay_1ms
+   270 ;;   ___fttol->___ftpack
+   271 ;;
+   272 ;; Critical Paths under _main in BANK0
+   273 ;;
+   274 ;;   _main->___ftmul
+   275 ;;   ___lwtoft->___fttol
+   276 ;;   ___ftmul->___lwtoft
+   277 ;;
+   278 ;; Critical Paths under _main in BANK1
+   279 ;;
+   280 ;;   None.
+   281 ;;
+   282 ;; Critical Paths under _main in BANK3
+   283 ;;
+   284 ;;   None.
+   285 ;;
+   286 ;; Critical Paths under _main in BANK2
+   287 ;;
+   288 ;;   None.
+   289 ;;
+   290 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   291 ;;
+   292 ;;
+   293 ;;Call Graph Tables:
+   294 ;;
+   295 ;; ---------------------------------------------------------------------------------
+   296 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   297 ;; ---------------------------------------------------------------------------------
+   298 ;; (0) _main                                                 0     0      0    1216
+   299 ;;                               _init
+   300 ;;                         _delay_10us
+   301 ;;                           ___lwtoft
+   302 ;;                            ___ftmul
+   303 ;;                            ___fttol
+   304 ;;                     _motion_Forward
+   305 ;;                        _motion_Stop
+   306 ;;                          _delay_1ms
+   307 ;;                    _motion_Backward
+   308 ;;                    _motion_LeftTurn
+   309 ;;                   _motion_RightTurn
+   310 ;; ---------------------------------------------------------------------------------
+   311 ;; (1) ___lwtoft                                             3     0      3     231
+   312 ;;                                              9 BANK0      3     0      3
+   313 ;;                           ___ftpack
+   314 ;;                            ___fttol (ARG)
+   315 ;; ---------------------------------------------------------------------------------
+   316 ;; (1) ___ftmul                                             15     9      6     535
+   317 ;;                                             12 BANK0     15     9      6
+   318 ;;                           ___ftpack
+   319 ;;                           ___lwtoft (ARG)
+   320 ;;                            ___fttol (ARG)
+   321 ;; ---------------------------------------------------------------------------------
+   322 ;; (1) _motion_RightTurn                                     2     0      2      44
+   323 ;;                                              2 COMMON     2     0      2
+   324 ;;                          _delay_1ms
+   325 ;; ---------------------------------------------------------------------------------
+   326 ;; (1) _motion_LeftTurn                                      2     0      2      44
+   327 ;;                                              2 COMMON     2     0      2
+   328 ;;                          _delay_1ms
+   329 ;; ---------------------------------------------------------------------------------
+   330 ;; (1) _motion_Backward                                      2     0      2      44
+   331 ;;                                              2 COMMON     2     0      2
+   332 ;;                          _delay_1ms
+   333 ;; ---------------------------------------------------------------------------------
+   334 ;; (1) _motion_Forward                                       0     0      0      22
+   335 ;;                          _delay_1ms
+   336 ;; ---------------------------------------------------------------------------------
+   337 ;; (1) ___fttol                                             13     9      4     252
+   338 ;;                                              8 COMMON     4     0      4
+   339 ;;                                              0 BANK0      9     9      0
+   340 ;;                           ___ftpack (ARG)
+   341 ;; ---------------------------------------------------------------------------------
+   342 ;; (2) ___ftpack                                             8     3      5     209
+   343 ;;                                              0 COMMON     8     3      5
+   344 ;; ---------------------------------------------------------------------------------
+   345 ;; (2) _delay_1ms                                            2     0      2      22
+   346 ;;                                              0 COMMON     2     0      2
+   347 ;; ---------------------------------------------------------------------------------
+   348 ;; (1) _motion_Stop                                          0     0      0       0
+   349 ;; ---------------------------------------------------------------------------------
+   350 ;; (1) _delay_10us                                           2     0      2      22
+   351 ;;                                              0 COMMON     2     0      2
+   352 ;; ---------------------------------------------------------------------------------
+   353 ;; (1) _init                                                 0     0      0       0
+   354 ;; ---------------------------------------------------------------------------------
+   355 ;; Estimated maximum stack depth 2
+   356 ;; ---------------------------------------------------------------------------------
+   357 ;; Call Graph Graphs:
+   358 ;; _main (ROOT)
+   359 ;;   _init
+   360 ;;   _delay_10us
+   361 ;;   ___lwtoft
+   362 ;;     ___ftpack
+   363 ;;     ___fttol (ARG)
+   364 ;;       ___ftpack (ARG)
+   365 ;;   ___ftmul
+   366 ;;     ___ftpack
+   367 ;;     ___lwtoft (ARG)
+   368 ;;       ___ftpack
+   369 ;;       ___fttol (ARG)
+   370 ;;         ___ftpack (ARG)
+   371 ;;     ___fttol (ARG)
+   372 ;;       ___ftpack (ARG)
+   373 ;;   ___fttol
+   374 ;;     ___ftpack (ARG)
+   375 ;;   _motion_Forward
+   376 ;;     _delay_1ms
+   377 ;;   _motion_Stop
+   378 ;;   _delay_1ms
+   379 ;;   _motion_Backward
+   380 ;;     _delay_1ms
+   381 ;;   _motion_LeftTurn
+   382 ;;     _delay_1ms
+   383 ;;   _motion_RightTurn
+   384 ;;     _delay_1ms
+   385 ;;
+   386 ;; Address spaces:
+   387 ;;Name               Size   Autos  Total    Cost      Usage
+   388 ;;BITCOMMON            E      0       0       0        0.0%
+   389 ;;EEDATA             100      0       0       0        0.0%
+   390 ;;NULL                 0      0       0       0        0.0%
+   391 ;;CODE                 0      0       0       0        0.0%
+   392 ;;COMMON               E      C       E       1      100.0%
+   393 ;;BITSFR0              0      0       0       1        0.0%
+   394 ;;SFR0                 0      0       0       1        0.0%
+   395 ;;BITSFR1              0      0       0       2        0.0%
+   396 ;;SFR1                 0      0       0       2        0.0%
+   397 ;;STACK                0      0       2       2        0.0%
+   398 ;;ABS                  0      0      31       3        0.0%
+   399 ;;BITBANK0            50      0       0       4        0.0%
+   400 ;;BITSFR3              0      0       0       4        0.0%
+   401 ;;SFR3                 0      0       0       4        0.0%
+   402 ;;BANK0               50     1B      23       5       43.8%
+   403 ;;BITSFR2              0      0       0       5        0.0%
+   404 ;;SFR2                 0      0       0       5        0.0%
+   405 ;;BITBANK1            50      0       0       6        0.0%
+   406 ;;BANK1               50      0       0       7        0.0%
+   407 ;;BITBANK3            60      0       0       8        0.0%
+   408 ;;BANK3               60      0       0       9        0.0%
+   409 ;;BITBANK2            60      0       0      10        0.0%
+   410 ;;BANK2               60      0       0      11        0.0%
+   411 ;;DATA                 0      0      33      12        0.0%
+   412                           
+   413                           
+   414 ;; *************** function _main *****************
+   415 ;; Defined at:
+   416 ;;		line 19 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+   417 ;; Parameters:    Size  Location     Type
+   418 ;;		None
+   419 ;; Auto vars:     Size  Location     Type
+   420 ;;		None
+   421 ;; Return value:  Size  Location     Type
+   422 ;;		None               void
+   423 ;; Registers used:
+   424 ;;		wreg, status,2, status,0, pclath, cstack
+   425 ;; Tracked objects:
+   426 ;;		On entry : 17F/0
+   427 ;;		On exit  : 11F/0
+   428 ;;		Unchanged: FFE80/0
+   429 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   430 ;;      Params:         0       0       0       0       0
+   431 ;;      Locals:         0       0       0       0       0
+   432 ;;      Temps:          0       0       0       0       0
+   433 ;;      Totals:         0       0       0       0       0
+   434 ;;Total ram usage:        0 bytes
+   435 ;; Hardware stack levels required when called:    2
+   436 ;; This function calls:
+   437 ;;		_init
+   438 ;;		_delay_10us
+   439 ;;		___lwtoft
+   440 ;;		___ftmul
+   441 ;;		___fttol
+   442 ;;		_motion_Forward
+   443 ;;		_motion_Stop
+   444 ;;		_delay_1ms
+   445 ;;		_motion_Backward
+   446 ;;		_motion_LeftTurn
+   447 ;;		_motion_RightTurn
+   448 ;; This function is called by:
+   449 ;;		Startup code after reset
+   450 ;; This function uses a non-reentrant model
+   451 ;;
+   452  071A                     _main:	
+   453                           
+   454                           ;main_1.c: 20: init();
+   455                           
+   456                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   457  071A  120A  118A  256F   	fcall	_init
+      +       120A  118A         
+   458  071F                     l2389:	
+   459                           
+   460                           ;main_1.c: 22: CCP1IF = 0;
+   461  071F  1283               	bcf	3,5	;RP0=0, select bank0
+   462  0720  1303               	bcf	3,6	;RP1=0, select bank0
+   463  0721  110C               	bcf	12,2
+   464                           
+   465                           ;main_1.c: 23: RC1 = 1;
+   466  0722  1487               	bsf	7,1
+   467                           
+   468                           ;main_1.c: 24: delay_10us(1);
+   469  0723  01F0               	clrf	?_delay_10us
+   470  0724  0AF0               	incf	?_delay_10us,f
+   471  0725  01F1               	clrf	?_delay_10us+1
+   472  0726  120A  118A  2558   	fcall	_delay_10us
+      +       120A  118A         
+   473                           
+   474                           ;main_1.c: 25: RC1 = 0;
+   475  072B  1283               	bcf	3,5	;RP0=0, select bank0
+   476  072C  1087               	bcf	7,1
+   477  072D                     l712:	
+   478                           ;main_1.c: 29: while (!CCP1IF);
+   479                           
+   480  072D  1D0C               	btfss	12,2
+   481  072E  2F2D               	goto	l712
+   482  072F  3004               	movlw	4
+   483                           
+   484                           ;main_1.c: 30: CCP1IF = 0;
+   485  0730  110C               	bcf	12,2
+   486                           
+   487                           ;main_1.c: 31: CCP1CON = 0b00000100;
+   488  0731  0097               	movwf	23	;volatile
+   489                           
+   490                           ;main_1.c: 34: t = 0;
+   491  0732  01C1               	clrf	_t
+   492  0733  01C2               	clrf	_t+1
+   493                           
+   494                           ;main_1.c: 36: while(!CCP1IF && t<1400) {
+   495  0734  2F48               	goto	l2403
+   496  0735                     l2405:	
+   497  0735  3005               	movlw	5
+   498  0736  0242               	subwf	_t+1,w
+   499  0737  3078               	movlw	120
+   500  0738  1903               	skipnz
+   501  0739  0241               	subwf	_t,w
+   502  073A  1803               	btfsc	3,0
+   503  073B  2F4A               	goto	l2407
+   504                           
+   505                           ;main_1.c: 37: delay_10us(2);
+   506  073C  3002               	movlw	2
+   507  073D  00F0               	movwf	?_delay_10us
+   508  073E  01F1               	clrf	?_delay_10us+1
+   509  073F  120A  118A  2558   	fcall	_delay_10us
+      +       120A  118A         
+   510                           
+   511                           ;main_1.c: 38: t += 1;
+   512  0744  1283               	bcf	3,5	;RP0=0, select bank0
+   513  0745  0AC1               	incf	_t,f
+   514  0746  1903               	skipnz
+   515  0747  0AC2               	incf	_t+1,f
+   516  0748                     l2403:	
+   517  0748  1D0C               	btfss	12,2
+   518  0749  2F35               	goto	l2405
+   519  074A                     l2407:	
+   520                           
+   521                           ;main_1.c: 40: }
+   522                           ;main_1.c: 44: CCP1CON = 0b00000101;
+   523  074A  3005               	movlw	5
+   524  074B  0097               	movwf	23	;volatile
+   525                           
+   526                           ;main_1.c: 45: CCP1IF = 0;
+   527  074C  110C               	bcf	12,2
+   528                           
+   529                           ;main_1.c: 46: s = (int)(0.34*t);
+   530  074D  0842               	movf	_t+1,w
+   531  074E  00AA               	movwf	?___lwtoft+1
+   532  074F  0841               	movf	_t,w
+   533  0750  00A9               	movwf	?___lwtoft
+   534  0751  120A  118A  2653   	fcall	___lwtoft
+      +       120A  118A         
+   535  0756  0829               	movf	?___lwtoft,w
+   536  0757  00AF               	movwf	?___ftmul+3
+   537  0758  082A               	movf	?___lwtoft+1,w
+   538  0759  00B0               	movwf	?___ftmul+4
+   539  075A  082B               	movf	?___lwtoft+2,w
+   540  075B  00B1               	movwf	?___ftmul+5
+   541  075C  3014               	movlw	20
+   542  075D  00AC               	movwf	?___ftmul
+   543  075E  30AE               	movlw	174
+   544  075F  00AD               	movwf	?___ftmul+1
+   545  0760  303E               	movlw	62
+   546  0761  00AE               	movwf	?___ftmul+2
+   547  0762  120A  118A  2663   	fcall	___ftmul
+      +       120A  118A         
+   548  0767  082C               	movf	?___ftmul,w
+   549  0768  00F8               	movwf	?___fttol
+   550  0769  082D               	movf	?___ftmul+1,w
+   551  076A  00F9               	movwf	?___fttol+1
+   552  076B  082E               	movf	?___ftmul+2,w
+   553  076C  00FA               	movwf	?___fttol+2
+   554  076D  120A  118A  258B   	fcall	___fttol
+      +       120A  118A         
+   555  0772  0879               	movf	?___fttol+1,w
+   556  0773  00BE               	movwf	_s+1
+   557  0774  0878               	movf	?___fttol,w
+   558  0775  00BD               	movwf	_s
+   559                           
+   560                           ;main_1.c: 47: if (s>13) {
+   561  0776  3000               	movlw	0
+   562  0777  023E               	subwf	_s+1,w
+   563  0778  300E               	movlw	14
+   564  0779  1903               	skipnz
+   565  077A  023D               	subwf	_s,w
+   566  077B  1C03               	skipc
+   567  077C  2F9B               	goto	l2429
+   568  077D  3000               	movlw	0
+   569                           
+   570                           ;main_1.c: 48: RD7 = 0;
+   571  077E  1388               	bcf	8,7
+   572                           
+   573                           ;main_1.c: 50: if (road_pass >= 2) {
+   574  077F  023C               	subwf	_road_pass+1,w
+   575  0780  3002               	movlw	2
+   576  0781  1903               	skipnz
+   577  0782  023B               	subwf	_road_pass,w
+   578  0783  1C03               	skipc
+   579  0784  2F8D               	goto	l2423
+   580                           
+   581                           ;main_1.c: 51: motion_Forward();
+   582  0785  120A  118A  261C   	fcall	_motion_Forward
+      +       120A  118A         
+   583                           
+   584                           ;main_1.c: 52: status = 0;
+   585  078A  01BF               	clrf	_status
+   586  078B  01C0               	clrf	_status+1
+   587                           
+   588                           ;main_1.c: 53: }
+   589  078C  2F95               	goto	l2427
+   590  078D                     l2423:	
+   591                           
+   592                           ;main_1.c: 55: else {
+   593                           ;main_1.c: 56: motion_Forward();
+   594  078D  120A  118A  261C   	fcall	_motion_Forward
+      +       120A  118A         
+   595                           
+   596                           ;main_1.c: 57: road_pass++;
+   597  0792  0ABB               	incf	_road_pass,f
+   598  0793  1903               	skipnz
+   599  0794  0ABC               	incf	_road_pass+1,f
+   600  0795                     l2427:	
+   601                           
+   602                           ;main_1.c: 58: }
+   603                           ;main_1.c: 59: motion_Forward();
+   604  0795  120A  118A  261C   	fcall	_motion_Forward
+      +       120A  118A         
+   605                           
+   606                           ;main_1.c: 61: }
+   607  079A  2FF7               	goto	l2463
+   608  079B                     l2429:	
+   609                           
+   610                           ;main_1.c: 62: else {
+   611                           ;main_1.c: 63: road_pass = 0;
+   612  079B  01BB               	clrf	_road_pass
+   613  079C  01BC               	clrf	_road_pass+1
+   614                           
+   615                           ;main_1.c: 64: motion_Stop();
+   616  079D  120A  118A  2547   	fcall	_motion_Stop
+      +       120A  118A         
+   617  07A2  3090               	movlw	144
+   618                           
+   619                           ;main_1.c: 65: RD7 = 1;
+   620  07A3  1788               	bsf	8,7
+   621                           
+   622                           ;main_1.c: 66: delay_1ms(400);
+   623  07A4  00F0               	movwf	?_delay_1ms
+   624  07A5  3001               	movlw	1
+   625  07A6  00F1               	movwf	?_delay_1ms+1
+   626  07A7  120A  118A  262F   	fcall	_delay_1ms
+      +       120A  118A         
+   627                           
+   628                           ;main_1.c: 67: if (s<5) {
+   629  07AC  3000               	movlw	0
+   630  07AD  1283               	bcf	3,5	;RP0=0, select bank0
+   631  07AE  1303               	bcf	3,6	;RP1=0, select bank0
+   632  07AF  023E               	subwf	_s+1,w
+   633  07B0  3005               	movlw	5
+   634  07B1  1903               	skipnz
+   635  07B2  023D               	subwf	_s,w
+   636  07B3  1803               	skipnc
+   637  07B4  2FBF               	goto	l2441
+   638                           
+   639                           ;main_1.c: 68: motion_Backward(300);
+   640  07B5  302C               	movlw	44
+   641  07B6  00F2               	movwf	?_motion_Backward
+   642  07B7  3001               	movlw	1
+   643  07B8  00F3               	movwf	?_motion_Backward+1
+   644  07B9  120A  118A  25ED   	fcall	_motion_Backward
+      +       120A  118A         
+   645                           
+   646                           ;main_1.c: 69: }
+   647  07BE  2FEE               	goto	l2461
+   648  07BF                     l2441:	
+   649                           
+   650                           ;main_1.c: 70: else if(status == 0) {
+   651  07BF  0840               	movf	_status+1,w
+   652  07C0  043F               	iorwf	_status,w
+   653  07C1  1D03               	skipz
+   654  07C2  2FCE               	goto	l2447
+   655                           
+   656                           ;main_1.c: 71: motion_LeftTurn(90);
+   657  07C3  305A               	movlw	90
+   658  07C4  00F2               	movwf	?_motion_LeftTurn
+   659  07C5  01F3               	clrf	?_motion_LeftTurn+1
+   660  07C6  120A  118A  260B   	fcall	_motion_LeftTurn
+      +       120A  118A         
+   661                           
+   662                           ;main_1.c: 72: status = 1;
+   663  07CB  01BF               	clrf	_status
+   664  07CC  0ABF               	incf	_status,f
+   665  07CD  2FED               	goto	L1
+   666  07CE                     l2447:	
+   667                           ;main_1.c: 73: }
+   668                           
+   669                           
+   670                           ;main_1.c: 74: else if(status == 1) {
+   671  07CE  033F               	decf	_status,w
+   672  07CF  0440               	iorwf	_status+1,w
+   673  07D0  1D03               	skipz
+   674  07D1  2FDC               	goto	l2453
+   675                           
+   676                           ;main_1.c: 75: motion_RightTurn(134);
+   677  07D2  3086               	movlw	134
+   678  07D3  00F2               	movwf	?_motion_RightTurn
+   679  07D4  01F3               	clrf	?_motion_RightTurn+1
+   680  07D5  120A  118A  25FA   	fcall	_motion_RightTurn
+      +       120A  118A         
+   681                           
+   682                           ;main_1.c: 76: status = 2;
+   683  07DA  3002               	movlw	2
+   684  07DB  2FEA               	goto	L2
+   685  07DC                     l2453:	
+   686                           ;main_1.c: 77: }
+   687                           
+   688                           
+   689                           ;main_1.c: 78: else if(status == 2) {
+   690  07DC  083F               	movf	_status,w
+   691  07DD  3A02               	xorlw	2
+   692  07DE  0440               	iorwf	_status+1,w
+   693  07DF  1D03               	skipz
+   694  07E0  2FEC               	goto	l2459
+   695                           
+   696                           ;main_1.c: 79: motion_RightTurn(90);
+   697  07E1  305A               	movlw	90
+   698  07E2  00F2               	movwf	?_motion_RightTurn
+   699  07E3  01F3               	clrf	?_motion_RightTurn+1
+   700  07E4  120A  118A  25FA   	fcall	_motion_RightTurn
+      +       120A  118A         
+   701                           
+   702                           ;main_1.c: 80: status = 3;
+   703  07E9  3003               	movlw	3
+   704  07EA                     L2:	
+   705  07EA  00BF               	movwf	_status
+   706  07EB  2FED               	goto	L1
+   707  07EC                     l2459:	
+   708                           ;main_1.c: 81: }
+   709                           
+   710                           
+   711                           ;main_1.c: 82: else {
+   712                           ;main_1.c: 83: status = 0;
+   713  07EC  01BF               	clrf	_status
+   714  07ED                     L1:	
+   715  07ED  01C0               	clrf	_status+1
+   716  07EE                     l2461:	
+   717                           
+   718                           ;main_1.c: 84: }
+   719                           ;main_1.c: 87: delay_1ms(400);
+   720  07EE  3090               	movlw	144
+   721  07EF  00F0               	movwf	?_delay_1ms
+   722  07F0  3001               	movlw	1
+   723  07F1  00F1               	movwf	?_delay_1ms+1
+   724  07F2  120A  118A  262F   	fcall	_delay_1ms
+      +       120A  118A         
+   725  07F7                     l2463:	
+   726                           
+   727                           ;main_1.c: 88: }
+   728                           ;main_1.c: 90: delay_1ms(10);;
+   729  07F7  300A               	movlw	10
+   730  07F8  00F0               	movwf	?_delay_1ms
+   731  07F9  01F1               	clrf	?_delay_1ms+1
+   732  07FA  120A  118A  262F   	fcall	_delay_1ms
+      +       120A  118A         
+   733  07FF  2F1F               	goto	l2389
+   734  0800                     __end_of_main:	
+   735                           
+   736                           	psect	text258
+   737  0653                     __ptext258:	
+   738 ;; =============== function _main ends ============
+   739                           
+   740                           
+   741 ;; *************** function ___lwtoft *****************
+   742 ;; Defined at:
+   743 ;;		line 29 in file "C:\Program Files\HI-TECH Software\PICC\9.83\sources\lwtoft.c"
+   744 ;; Parameters:    Size  Location     Type
+   745 ;;  c               2    9[BANK0 ] unsigned int 
+   746 ;; Auto vars:     Size  Location     Type
+   747 ;;		None
+   748 ;; Return value:  Size  Location     Type
+   749 ;;                  3    9[BANK0 ] float 
+   750 ;; Registers used:
+   751 ;;		wreg, status,2, status,0, pclath, cstack
+   752 ;; Tracked objects:
+   753 ;;		On entry : 17F/0
+   754 ;;		On exit  : 17F/0
+   755 ;;		Unchanged: FFE80/0
+   756 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   757 ;;      Params:         0       3       0       0       0
+   758 ;;      Locals:         0       0       0       0       0
+   759 ;;      Temps:          0       0       0       0       0
+   760 ;;      Totals:         0       3       0       0       0
+   761 ;;Total ram usage:        3 bytes
+   762 ;; Hardware stack levels used:    1
+   763 ;; Hardware stack levels required when called:    1
+   764 ;; This function calls:
+   765 ;;		___ftpack
+   766 ;; This function is called by:
+   767 ;;		_main
+   768 ;; This function uses a non-reentrant model
+   769 ;;
+   770  0653                     ___lwtoft:	
+   771                           
+   772                           ; Regs used in ___lwtoft: [wreg+status,2+status,0+pclath+cstack]
+   773  0653  0829               	movf	___lwtoft@c,w
+   774  0654  00F0               	movwf	?___ftpack
+   775  0655  082A               	movf	___lwtoft@c+1,w
+   776  0656  00F1               	movwf	?___ftpack+1
+   777  0657  308E               	movlw	142
+   778  0658  01F2               	clrf	?___ftpack+2
+   779  0659  00F3               	movwf	?___ftpack+3
+   780  065A  01F4               	clrf	?___ftpack+4
+   781  065B  26D2               	fcall	___ftpack
+   782  065C  0870               	movf	?___ftpack,w
+   783  065D  00A9               	movwf	?___lwtoft
+   784  065E  0871               	movf	?___ftpack+1,w
+   785  065F  00AA               	movwf	?___lwtoft+1
+   786  0660  0872               	movf	?___ftpack+2,w
+   787  0661  00AB               	movwf	?___lwtoft+2
+   788  0662  0008               	return
+   789  0663                     __end_of___lwtoft:	
+   790  0663                     __ptext259:	
+   791 ;; =============== function ___lwtoft ends ============
+   792                           
+   793                           
+   794 ;; *************** function ___ftmul *****************
+   795 ;; Defined at:
+   796 ;;		line 52 in file "C:\Program Files\HI-TECH Software\PICC\9.83\sources\ftmul.c"
+   797 ;; Parameters:    Size  Location     Type
+   798 ;;  f1              3   12[BANK0 ] float 
+   799 ;;  f2              3   15[BANK0 ] float 
+   800 ;; Auto vars:     Size  Location     Type
+   801 ;;  f3_as_produc    3   22[BANK0 ] unsigned um
+   802 ;;  sign            1   26[BANK0 ] unsigned char 
+   803 ;;  cntr            1   25[BANK0 ] unsigned char 
+   804 ;;  exp             1   21[BANK0 ] unsigned char 
+   805 ;; Return value:  Size  Location     Type
+   806 ;;                  3   12[BANK0 ] float 
+   807 ;; Registers used:
+   808 ;;		wreg, status,2, status,0, pclath, cstack
+   809 ;; Tracked objects:
+   810 ;;		On entry : 17F/0
+   811 ;;		On exit  : 17F/0
+   812 ;;		Unchanged: FFE80/0
+   813 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   814 ;;      Params:         0       6       0       0       0
+   815 ;;      Locals:         0       6       0       0       0
+   816 ;;      Temps:          0       3       0       0       0
+   817 ;;      Totals:         0      15       0       0       0
+   818 ;;Total ram usage:       15 bytes
+   819 ;; Hardware stack levels used:    1
+   820 ;; Hardware stack levels required when called:    1
+   821 ;; This function calls:
+   822 ;;		___ftpack
+   823 ;; This function is called by:
+   824 ;;		_main
+   825 ;; This function uses a non-reentrant model
+   826 ;;
+   827  0663                     ___ftmul:	
+   828                           
+   829                           ; Regs used in ___ftmul: [wreg+status,2+status,0+pclath+cstack]
+   830  0663  082C               	movf	___ftmul@f1,w
+   831  0664  00B2               	movwf	??___ftmul
+   832  0665  082D               	movf	___ftmul@f1+1,w
+   833  0666  00B3               	movwf	??___ftmul+1
+   834  0667  082E               	movf	___ftmul@f1+2,w
+   835  0668  00B4               	movwf	??___ftmul+2
+   836  0669  1003               	clrc
+   837  066A  0D33               	rlf	??___ftmul+1,w
+   838  066B  0D34               	rlf	??___ftmul+2,w
+   839  066C  00B5               	movwf	___ftmul@exp
+   840  066D  08B5               	movf	___ftmul@exp,f
+   841  066E  1D03               	skipz
+   842  066F  2E74               	goto	l2333
+   843  0670  01AC               	clrf	?___ftmul
+   844  0671  01AD               	clrf	?___ftmul+1
+   845  0672  01AE               	clrf	?___ftmul+2
+   846  0673  0008               	return
+   847  0674                     l2333:	
+   848  0674  082F               	movf	___ftmul@f2,w
+   849  0675  00B2               	movwf	??___ftmul
+   850  0676  0830               	movf	___ftmul@f2+1,w
+   851  0677  00B3               	movwf	??___ftmul+1
+   852  0678  0831               	movf	___ftmul@f2+2,w
+   853  0679  00B4               	movwf	??___ftmul+2
+   854  067A  1003               	clrc
+   855  067B  0D33               	rlf	??___ftmul+1,w
+   856  067C  0D34               	rlf	??___ftmul+2,w
+   857  067D  00BA               	movwf	___ftmul@sign
+   858  067E  08BA               	movf	___ftmul@sign,f
+   859  067F  1D03               	skipz
+   860  0680  2E85               	goto	l2339
+   861  0681  01AC               	clrf	?___ftmul
+   862  0682  01AD               	clrf	?___ftmul+1
+   863  0683  01AE               	clrf	?___ftmul+2
+   864  0684  0008               	return
+   865  0685                     l2339:	
+   866  0685  083A               	movf	___ftmul@sign,w
+   867  0686  3E7B               	addlw	123
+   868  0687  07B5               	addwf	___ftmul@exp,f
+   869  0688  082E               	movf	___ftmul@f1+2,w
+   870  0689  00BA               	movwf	___ftmul@sign
+   871  068A  0831               	movf	___ftmul@f2+2,w
+   872  068B  06BA               	xorwf	___ftmul@sign,f
+   873  068C  3080               	movlw	128
+   874  068D  05BA               	andwf	___ftmul@sign,f
+   875  068E  3007               	movlw	7
+   876  068F  17AD               	bsf	___ftmul@f1+1,7
+   877  0690  17B0               	bsf	___ftmul@f2+1,7
+   878  0691  01B1               	clrf	___ftmul@f2+2
+   879  0692  01B6               	clrf	___ftmul@f3_as_product
+   880  0693  01B7               	clrf	___ftmul@f3_as_product+1
+   881  0694  01B8               	clrf	___ftmul@f3_as_product+2
+   882  0695  00B9               	movwf	___ftmul@cntr
+   883  0696                     l2357:	
+   884  0696  1C2C               	btfss	___ftmul@f1,0
+   885  0697  2EA0               	goto	l2361
+   886  0698  082F               	movf	___ftmul@f2,w
+   887  0699  2710  120A  118A   	fcall	PL2	;call to abstracted procedure
+   888  069C  1803               	skipnc
+   889  069D  0A31               	incf	___ftmul@f2+2,w
+   890  069E  1D03               	btfss	3,2
+   891  069F  07B8               	addwf	___ftmul@f3_as_product+2,f
+   892  06A0                     l2361:	
+   893  06A0  1003               	clrc
+   894  06A1  0CAE               	rrf	___ftmul@f1+2,f
+   895  06A2  0CAD               	rrf	___ftmul@f1+1,f
+   896  06A3  0CAC               	rrf	___ftmul@f1,f
+   897  06A4  1003               	clrc
+   898  06A5  0DAF               	rlf	___ftmul@f2,f
+   899  06A6  0DB0               	rlf	___ftmul@f2+1,f
+   900  06A7  0DB1               	rlf	___ftmul@f2+2,f
+   901  06A8  0BB9               	decfsz	___ftmul@cntr,f
+   902  06A9  2E96               	goto	l2357
+   903  06AA  3009               	movlw	9
+   904  06AB  00B9               	movwf	___ftmul@cntr
+   905  06AC                     l2369:	
+   906  06AC  1C2C               	btfss	___ftmul@f1,0
+   907  06AD  2EB6               	goto	l2373
+   908  06AE  082F               	movf	___ftmul@f2,w
+   909  06AF  2710  120A  118A   	fcall	PL2	;call to abstracted procedure
+   910  06B2  1803               	skipnc
+   911  06B3  0A31               	incf	___ftmul@f2+2,w
+   912  06B4  1D03               	btfss	3,2
+   913  06B5  07B8               	addwf	___ftmul@f3_as_product+2,f
+   914  06B6                     l2373:	
+   915  06B6  1003               	clrc
+   916  06B7  0CAE               	rrf	___ftmul@f1+2,f
+   917  06B8  0CAD               	rrf	___ftmul@f1+1,f
+   918  06B9  0CAC               	rrf	___ftmul@f1,f
+   919  06BA  1003               	clrc
+   920  06BB  0CB8               	rrf	___ftmul@f3_as_product+2,f
+   921  06BC  0CB7               	rrf	___ftmul@f3_as_product+1,f
+   922  06BD  0CB6               	rrf	___ftmul@f3_as_product,f
+   923  06BE  0BB9               	decfsz	___ftmul@cntr,f
+   924  06BF  2EAC               	goto	l2369
+   925  06C0  0836               	movf	___ftmul@f3_as_product,w
+   926  06C1  00F0               	movwf	?___ftpack
+   927  06C2  0837               	movf	___ftmul@f3_as_product+1,w
+   928  06C3  00F1               	movwf	?___ftpack+1
+   929  06C4  0838               	movf	___ftmul@f3_as_product+2,w
+   930  06C5  00F2               	movwf	?___ftpack+2
+   931  06C6  0835               	movf	___ftmul@exp,w
+   932  06C7  00F3               	movwf	?___ftpack+3
+   933  06C8  083A               	movf	___ftmul@sign,w
+   934  06C9  00F4               	movwf	?___ftpack+4
+   935  06CA  26D2               	fcall	___ftpack
+   936  06CB  0870               	movf	?___ftpack,w
+   937  06CC  00AC               	movwf	?___ftmul
+   938  06CD  0871               	movf	?___ftpack+1,w
+   939  06CE  00AD               	movwf	?___ftmul+1
+   940  06CF  0872               	movf	?___ftpack+2,w
+   941  06D0  00AE               	movwf	?___ftmul+2
+   942  06D1  0008               	return
+   943  06D2                     __end_of___ftmul:	
+   944  06D2                     __ptext265:	
+   945 ;; =============== function ___fttol ends ============
+   946                           
+   947                           
+   948 ;; *************** function ___ftpack *****************
+   949 ;; Defined at:
+   950 ;;		line 63 in file "C:\Program Files\HI-TECH Software\PICC\9.83\sources\float.c"
+   951 ;; Parameters:    Size  Location     Type
+   952 ;;  arg             3    0[COMMON] unsigned um
+   953 ;;  exp             1    3[COMMON] unsigned char 
+   954 ;;  sign            1    4[COMMON] unsigned char 
+   955 ;; Auto vars:     Size  Location     Type
+   956 ;;		None
+   957 ;; Return value:  Size  Location     Type
+   958 ;;                  3    0[COMMON] float 
+   959 ;; Registers used:
+   960 ;;		wreg, status,2, status,0
+   961 ;; Tracked objects:
+   962 ;;		On entry : 17F/0
+   963 ;;		On exit  : 17F/0
+   964 ;;		Unchanged: FFE80/0
+   965 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   966 ;;      Params:         5       0       0       0       0
+   967 ;;      Locals:         0       0       0       0       0
+   968 ;;      Temps:          3       0       0       0       0
+   969 ;;      Totals:         8       0       0       0       0
+   970 ;;Total ram usage:        8 bytes
+   971 ;; Hardware stack levels used:    1
+   972 ;; This function calls:
+   973 ;;		Nothing
+   974 ;; This function is called by:
+   975 ;;		___ftmul
+   976 ;;		___lwtoft
+   977 ;; This function uses a non-reentrant model
+   978 ;;
+   979  06D2                     ___ftpack:	
+   980                           
+   981                           ; Regs used in ___ftpack: [wreg+status,2+status,0]
+   982  06D2  0873               	movf	___ftpack@exp,w
+   983  06D3  1903               	btfsc	3,2
+   984  06D4  2EDA               	goto	l2229
+   985  06D5  0872               	movf	___ftpack@arg+2,w
+   986  06D6  0471               	iorwf	___ftpack@arg+1,w
+   987  06D7  0470               	iorwf	___ftpack@arg,w
+   988  06D8  1D03               	skipz
+   989  06D9  2EE3               	goto	l2235
+   990  06DA                     l2229:	
+   991  06DA  01F0               	clrf	?___ftpack
+   992  06DB  01F1               	clrf	?___ftpack+1
+   993  06DC  01F2               	clrf	?___ftpack+2
+   994  06DD  0008               	return
+   995  06DE                     l2233:	
+   996  06DE  0AF3               	incf	___ftpack@exp,f
+   997  06DF  1003               	clrc
+   998  06E0  0CF2               	rrf	___ftpack@arg+2,f
+   999  06E1  0CF1               	rrf	___ftpack@arg+1,f
+  1000  06E2  0CF0               	rrf	___ftpack@arg,f
+  1001  06E3                     l2235:	
+  1002  06E3  30FE               	movlw	254
+  1003  06E4  0572               	andwf	___ftpack@arg+2,w
+  1004  06E5  1903               	btfsc	3,2
+  1005  06E6  2EF2               	goto	l2239
+  1006  06E7  2EDE               	goto	l2233
+  1007  06E8                     l2237:	
+  1008  06E8  0AF3               	incf	___ftpack@exp,f
+  1009  06E9  0AF0               	incf	___ftpack@arg,f
+  1010  06EA  1903               	skipnz
+  1011  06EB  0AF1               	incf	___ftpack@arg+1,f
+  1012  06EC  1903               	skipnz
+  1013  06ED  0AF2               	incf	___ftpack@arg+2,f
+  1014  06EE  1003               	clrc
+  1015  06EF  0CF2               	rrf	___ftpack@arg+2,f
+  1016  06F0  0CF1               	rrf	___ftpack@arg+1,f
+  1017  06F1  0CF0               	rrf	___ftpack@arg,f
+  1018  06F2                     l2239:	
+  1019  06F2  30FF               	movlw	255
+  1020  06F3  0572               	andwf	___ftpack@arg+2,w
+  1021  06F4  1903               	btfsc	3,2
+  1022  06F5  2EFC               	goto	l2243
+  1023  06F6  2EE8               	goto	l2237
+  1024  06F7                     l2241:	
+  1025  06F7  03F3               	decf	___ftpack@exp,f
+  1026  06F8  1003               	clrc
+  1027  06F9  0DF0               	rlf	___ftpack@arg,f
+  1028  06FA  0DF1               	rlf	___ftpack@arg+1,f
+  1029  06FB  0DF2               	rlf	___ftpack@arg+2,f
+  1030  06FC                     l2243:	
+  1031  06FC  1FF1               	btfss	___ftpack@arg+1,7
+  1032  06FD  2EF7               	goto	l2241
+  1033  06FE  1C73               	btfss	___ftpack@exp,0
+  1034  06FF  13F1               	bcf	___ftpack@arg+1,7
+  1035  0700  1003               	clrc
+  1036  0701  0CF3               	rrf	___ftpack@exp,f
+  1037  0702  0873               	movf	___ftpack@exp,w
+  1038  0703  00F7               	movwf	??___ftpack+2
+  1039  0704  01F6               	clrf	??___ftpack+1
+  1040  0705  01F5               	clrf	??___ftpack
+  1041  0706  0875               	movf	??___ftpack,w
+  1042  0707  04F0               	iorwf	___ftpack@arg,f
+  1043  0708  0876               	movf	??___ftpack+1,w
+  1044  0709  04F1               	iorwf	___ftpack@arg+1,f
+  1045  070A  0877               	movf	??___ftpack+2,w
+  1046  070B  04F2               	iorwf	___ftpack@arg+2,f
+  1047  070C  0874               	movf	___ftpack@sign,w
+  1048  070D  1D03               	skipz
+  1049  070E  17F2               	bsf	___ftpack@arg+2,7
+  1050  070F  0008               	return
+  1051  0710                     __end_of___ftpack:	
+  1052  0710                     PL2:	
+  1053  0710  07B6               	addwf	___ftmul@f3_as_product,f
+  1054  0711  0830               	movf	___ftmul@f2+1,w
+  1055  0712  1103               	clrz
+  1056  0713  1803               	skipnc
+  1057  0714  0A30               	incf	___ftmul@f2+1,w
+  1058  0715  1D03               	btfss	3,2
+  1059  0716  07B7               	addwf	___ftmul@f3_as_product+1,f
+  1060  0717  0831               	movf	___ftmul@f2+2,w
+  1061  0718  1103               	clrz
+  1062  0719  0008               	return
+  1063                           
+  1064                           	psect	text262
+  1065  05ED                     __ptext262:	
+  1066 ;; =============== function _motion_LeftTurn ends ============
+  1067                           
+  1068                           
+  1069 ;; *************** function _motion_Backward *****************
+  1070 ;; Defined at:
+  1071 ;;		line 139 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1072 ;; Parameters:    Size  Location     Type
+  1073 ;;  tt              2    2[COMMON] unsigned int 
+  1074 ;; Auto vars:     Size  Location     Type
+  1075 ;;		None
+  1076 ;; Return value:  Size  Location     Type
+  1077 ;;		None               void
+  1078 ;; Registers used:
+  1079 ;;		wreg, status,2, status,0, pclath, cstack
+  1080 ;; Tracked objects:
+  1081 ;;		On entry : 17F/0
+  1082 ;;		On exit  : 17F/0
+  1083 ;;		Unchanged: FFE80/0
+  1084 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1085 ;;      Params:         2       0       0       0       0
+  1086 ;;      Locals:         0       0       0       0       0
+  1087 ;;      Temps:          0       0       0       0       0
+  1088 ;;      Totals:         2       0       0       0       0
+  1089 ;;Total ram usage:        2 bytes
+  1090 ;; Hardware stack levels used:    1
+  1091 ;; Hardware stack levels required when called:    1
+  1092 ;; This function calls:
+  1093 ;;		_delay_1ms
+  1094 ;; This function is called by:
+  1095 ;;		_main
+  1096 ;; This function uses a non-reentrant model
+  1097 ;;
+  1098  05ED                     _motion_Backward:	
+  1099                           
+  1100                           ;main_1.c: 140: RC4 = 1;
+  1101                           
+  1102                           ; Regs used in _motion_Backward: [wreg+status,2+status,0+pclath+cstack]
+  1103  05ED  1607               	bsf	7,4
+  1104                           
+  1105                           ;main_1.c: 143: RC7 = 1;
+  1106  05EE  1787               	bsf	7,7
+  1107                           
+  1108                           ;main_1.c: 144: delay_1ms(tt);
+  1109  05EF  0873               	movf	motion_Backward@tt+1,w
+  1110  05F0  00F1               	movwf	?_delay_1ms+1
+  1111  05F1  0872               	movf	motion_Backward@tt,w
+  1112  05F2  00F0               	movwf	?_delay_1ms
+  1113  05F3  262F  120A  118A   	fcall	_delay_1ms
+  1114  05F6  2650               	call	PL5	;select bank 0
+  1115                           
+  1116                           ;main_1.c: 145: RC4 = 0;
+  1117  05F7  1207               	bcf	7,4
+  1118                           
+  1119                           ;main_1.c: 148: RC7 = 0;
+  1120  05F8  1387               	bcf	7,7
+  1121  05F9  0008               	return
+  1122  05FA                     __end_of_motion_Backward:	
+  1123  05FA                     __ptext260:	
+  1124 ;; =============== function ___ftmul ends ============
+  1125                           
+  1126                           
+  1127 ;; *************** function _motion_RightTurn *****************
+  1128 ;; Defined at:
+  1129 ;;		line 170 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1130 ;; Parameters:    Size  Location     Type
+  1131 ;;  angle           2    2[COMMON] unsigned int 
+  1132 ;; Auto vars:     Size  Location     Type
+  1133 ;;		None
+  1134 ;; Return value:  Size  Location     Type
+  1135 ;;		None               void
+  1136 ;; Registers used:
+  1137 ;;		wreg, status,2, status,0, pclath, cstack
+  1138 ;; Tracked objects:
+  1139 ;;		On entry : 17F/0
+  1140 ;;		On exit  : 17F/0
+  1141 ;;		Unchanged: FFE80/0
+  1142 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1143 ;;      Params:         2       0       0       0       0
+  1144 ;;      Locals:         0       0       0       0       0
+  1145 ;;      Temps:          0       0       0       0       0
+  1146 ;;      Totals:         2       0       0       0       0
+  1147 ;;Total ram usage:        2 bytes
+  1148 ;; Hardware stack levels used:    1
+  1149 ;; Hardware stack levels required when called:    1
+  1150 ;; This function calls:
+  1151 ;;		_delay_1ms
+  1152 ;; This function is called by:
+  1153 ;;		_main
+  1154 ;; This function uses a non-reentrant model
+  1155 ;;
+  1156  05FA                     _motion_RightTurn:	
+  1157                           
+  1158                           ;main_1.c: 172: RC5 = 1;
+  1159                           
+  1160                           ; Regs used in _motion_RightTurn: [wreg+status,2+status,0+pclath+cstack]
+  1161  05FA  1687               	bsf	7,5
+  1162                           
+  1163                           ;main_1.c: 173: RC6 = 0;
+  1164  05FB  1307               	bcf	7,6
+  1165                           
+  1166                           ;main_1.c: 174: RC7 = 1;
+  1167  05FC  1787               	bsf	7,7
+  1168                           
+  1169                           ;main_1.c: 175: delay_1ms(4*angle);
+  1170  05FD  0873               	movf	motion_RightTurn@angle+1,w
+  1171  05FE  00F1               	movwf	?_delay_1ms+1
+  1172  05FF  0872               	movf	motion_RightTurn@angle,w
+  1173  0600  2648  120A  118A   	fcall	PL3	;call to abstracted procedure
+  1174  0603  262F  120A  118A   	fcall	_delay_1ms
+  1175  0606  2650               	call	PL5	;select bank 0
+  1176                           
+  1177                           ;main_1.c: 177: RC5 = 0;
+  1178  0607  1287               	bcf	7,5
+  1179                           
+  1180                           ;main_1.c: 178: RC6 = 0;
+  1181  0608  1307               	bcf	7,6
+  1182                           
+  1183                           ;main_1.c: 179: RC7 = 0;
+  1184  0609  1387               	bcf	7,7
+  1185  060A  0008               	return
+  1186  060B                     __end_of_motion_RightTurn:	
+  1187  060B                     __ptext261:	
+  1188 ;; =============== function _motion_RightTurn ends ============
+  1189                           
+  1190                           
+  1191 ;; *************** function _motion_LeftTurn *****************
+  1192 ;; Defined at:
+  1193 ;;		line 158 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1194 ;; Parameters:    Size  Location     Type
+  1195 ;;  angle           2    2[COMMON] unsigned int 
+  1196 ;; Auto vars:     Size  Location     Type
+  1197 ;;		None
+  1198 ;; Return value:  Size  Location     Type
+  1199 ;;		None               void
+  1200 ;; Registers used:
+  1201 ;;		wreg, status,2, status,0, pclath, cstack
+  1202 ;; Tracked objects:
+  1203 ;;		On entry : 17F/0
+  1204 ;;		On exit  : 17F/0
+  1205 ;;		Unchanged: FFE80/0
+  1206 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1207 ;;      Params:         2       0       0       0       0
+  1208 ;;      Locals:         0       0       0       0       0
+  1209 ;;      Temps:          0       0       0       0       0
+  1210 ;;      Totals:         2       0       0       0       0
+  1211 ;;Total ram usage:        2 bytes
+  1212 ;; Hardware stack levels used:    1
+  1213 ;; Hardware stack levels required when called:    1
+  1214 ;; This function calls:
+  1215 ;;		_delay_1ms
+  1216 ;; This function is called by:
+  1217 ;;		_main
+  1218 ;; This function uses a non-reentrant model
+  1219 ;;
+  1220  060B                     _motion_LeftTurn:	
+  1221                           
+  1222                           ;main_1.c: 159: RC4 = 1;
+  1223                           
+  1224                           ; Regs used in _motion_LeftTurn: [wreg+status,2+status,0+pclath+cstack]
+  1225  060B  1607               	bsf	7,4
+  1226                           
+  1227                           ;main_1.c: 160: RC5 = 0;
+  1228  060C  1287               	bcf	7,5
+  1229                           
+  1230                           ;main_1.c: 161: RC6 = 1;
+  1231  060D  1707               	bsf	7,6
+  1232                           
+  1233                           ;main_1.c: 163: delay_1ms(4*angle);
+  1234  060E  0873               	movf	motion_LeftTurn@angle+1,w
+  1235  060F  00F1               	movwf	?_delay_1ms+1
+  1236  0610  0872               	movf	motion_LeftTurn@angle,w
+  1237  0611  2648  120A  118A   	fcall	PL3	;call to abstracted procedure
+  1238  0614  262F  120A  118A   	fcall	_delay_1ms
+  1239  0617  2650               	call	PL5	;select bank 0
+  1240                           
+  1241                           ;main_1.c: 164: RC4 = 0;
+  1242  0618  1207               	bcf	7,4
+  1243                           
+  1244                           ;main_1.c: 165: RC5 = 0;
+  1245  0619  1287               	bcf	7,5
+  1246                           
+  1247                           ;main_1.c: 166: RC6 = 0;
+  1248  061A  1307               	bcf	7,6
+  1249  061B  0008               	return
+  1250  061C                     __end_of_motion_LeftTurn:	
+  1251  061C                     __ptext263:	
+  1252 ;; =============== function _motion_Backward ends ============
+  1253                           
+  1254                           
+  1255 ;; *************** function _motion_Forward *****************
+  1256 ;; Defined at:
+  1257 ;;		line 128 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1258 ;; Parameters:    Size  Location     Type
+  1259 ;;		None
+  1260 ;; Auto vars:     Size  Location     Type
+  1261 ;;		None
+  1262 ;; Return value:  Size  Location     Type
+  1263 ;;		None               void
+  1264 ;; Registers used:
+  1265 ;;		wreg, status,2, status,0, pclath, cstack
+  1266 ;; Tracked objects:
+  1267 ;;		On entry : 17F/0
+  1268 ;;		On exit  : 17F/0
+  1269 ;;		Unchanged: FFE80/0
+  1270 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1271 ;;      Params:         0       0       0       0       0
+  1272 ;;      Locals:         0       0       0       0       0
+  1273 ;;      Temps:          0       0       0       0       0
+  1274 ;;      Totals:         0       0       0       0       0
+  1275 ;;Total ram usage:        0 bytes
+  1276 ;; Hardware stack levels used:    1
+  1277 ;; Hardware stack levels required when called:    1
+  1278 ;; This function calls:
+  1279 ;;		_delay_1ms
+  1280 ;; This function is called by:
+  1281 ;;		_main
+  1282 ;; This function uses a non-reentrant model
+  1283 ;;
+  1284  061C                     _motion_Forward:	
+  1285  061C  3064               	movlw	100
+  1286                           
+  1287                           ;main_1.c: 130: RC5 = 1;
+  1288                           
+  1289                           ; Regs used in _motion_Forward: [wreg+status,2+status,0+pclath+cstack]
+  1290  061D  1687               	bsf	7,5
+  1291                           
+  1292                           ;main_1.c: 131: RC6 = 1;
+  1293  061E  1707               	bsf	7,6
+  1294                           
+  1295                           ;main_1.c: 133: delay_1ms(100);
+  1296  061F  00F0               	movwf	?_delay_1ms
+  1297  0620  01F1               	clrf	?_delay_1ms+1
+  1298  0621  262F  120A  118A   	fcall	_delay_1ms
+  1299  0624  2650               	call	PL5	;select bank 0
+  1300                           
+  1301                           ;main_1.c: 134: RC6 = 0;
+  1302  0625  3014               	movlw	20
+  1303  0626  1307               	bcf	7,6
+  1304                           
+  1305                           ;main_1.c: 135: delay_1ms(20);
+  1306  0627  00F0               	movwf	?_delay_1ms
+  1307  0628  01F1               	clrf	?_delay_1ms+1
+  1308  0629  262F  120A  118A   	fcall	_delay_1ms
+  1309  062C  2650               	call	PL5	;select bank 0
+  1310                           
+  1311                           ;main_1.c: 136: RC6 = 1;
+  1312  062D  1707               	bsf	7,6
+  1313  062E  0008               	return
+  1314  062F                     __end_of_motion_Forward:	
+  1315  062F                     __ptext266:	
+  1316 ;; =============== function ___ftpack ends ============
+  1317                           
+  1318                           
+  1319 ;; *************** function _delay_1ms *****************
+  1320 ;; Defined at:
+  1321 ;;		line 194 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1322 ;; Parameters:    Size  Location     Type
+  1323 ;;  n               2    0[COMMON] unsigned int 
+  1324 ;; Auto vars:     Size  Location     Type
+  1325 ;;		None
+  1326 ;; Return value:  Size  Location     Type
+  1327 ;;		None               void
+  1328 ;; Registers used:
+  1329 ;;		wreg, status,2, status,0
+  1330 ;; Tracked objects:
+  1331 ;;		On entry : 11F/0
+  1332 ;;		On exit  : 11F/0
+  1333 ;;		Unchanged: FFE80/0
+  1334 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1335 ;;      Params:         2       0       0       0       0
+  1336 ;;      Locals:         0       0       0       0       0
+  1337 ;;      Temps:          0       0       0       0       0
+  1338 ;;      Totals:         2       0       0       0       0
+  1339 ;;Total ram usage:        2 bytes
+  1340 ;; Hardware stack levels used:    1
+  1341 ;; This function calls:
+  1342 ;;		Nothing
+  1343 ;; This function is called by:
+  1344 ;;		_main
+  1345 ;;		_motion_Forward
+  1346 ;;		_motion_Backward
+  1347 ;;		_motion_LeftTurn
+  1348 ;;		_motion_RightTurn
+  1349 ;; This function uses a non-reentrant model
+  1350 ;;
+  1351  062F                     _delay_1ms:	
+  1352                           
+  1353                           ;main_1.c: 195: OPTION_REG = 0x03;
+  1354                           
+  1355                           ; Regs used in _delay_1ms: [wreg+status,2+status,0]
+  1356  062F  3003               	movlw	3
+  1357  0630  1683               	bsf	3,5	;RP0=1, select bank1
+  1358  0631  1303               	bcf	3,6	;RP1=0, select bank1
+  1359  0632  0081               	movwf	1	;volatile
+  1360                           
+  1361                           ;main_1.c: 196: T0IF = 0;
+  1362  0633  110B               	bcf	11,2
+  1363                           
+  1364                           ;main_1.c: 198: for (i=0; i<n; i++) {
+  1365  0634  01FC               	clrf	_i
+  1366  0635  01FD               	clrf	_i+1
+  1367  0636                     l2223:	
+  1368  0636  0871               	movf	delay_1ms@n+1,w
+  1369  0637  027D               	subwf	_i+1,w
+  1370  0638  1D03               	skipz
+  1371  0639  2E3C               	goto	u405
+  1372  063A  0870               	movf	delay_1ms@n,w
+  1373  063B  027C               	subwf	_i,w
+  1374  063C                     u405:	
+  1375  063C  1803               	btfsc	3,0
+  1376  063D  0008               	return
+  1377                           
+  1378                           ;main_1.c: 199: TMR0 = 82;
+  1379  063E  3052               	movlw	82
+  1380  063F  2650               	call	PL5	;select bank 0
+  1381  0640  0081               	movwf	1	;volatile
+  1382  0641                     l766:	
+  1383                           ;main_1.c: 200: while(!T0IF);
+  1384                           
+  1385  0641  1D0B               	btfss	11,2
+  1386  0642  2E41               	goto	l766
+  1387                           
+  1388                           ;main_1.c: 201: T0IF = 0;
+  1389  0643  110B               	bcf	11,2
+  1390  0644  0AFC               	incf	_i,f
+  1391  0645  1903               	skipnz
+  1392  0646  0AFD               	incf	_i+1,f
+  1393  0647  2E36               	goto	l2223
+  1394  0648                     __end_of_delay_1ms:	
+  1395  0648                     PL3:	
+  1396  0648  00F0               	movwf	?_delay_1ms
+  1397  0649  1003               	clrc
+  1398  064A  0DF0               	rlf	?_delay_1ms,f
+  1399  064B  0DF1               	rlf	?_delay_1ms+1,f
+  1400  064C  1003               	clrc
+  1401  064D  0DF0               	rlf	?_delay_1ms,f
+  1402  064E  0DF1               	rlf	?_delay_1ms+1,f
+  1403  064F  0008               	return
+  1404  0650                     PL5:	
+  1405  0650  1283               	bcf	3,5	;RP0=0, select bank0
+  1406  0651  1303               	bcf	3,6	;RP1=0, select bank0
+  1407  0652  0008               	return
+  1408                           
+  1409                           	psect	text264
+  1410  058B                     __ptext264:	
+  1411 ;; =============== function _motion_Forward ends ============
+  1412                           
+  1413                           
+  1414 ;; *************** function ___fttol *****************
+  1415 ;; Defined at:
+  1416 ;;		line 45 in file "C:\Program Files\HI-TECH Software\PICC\9.83\sources\fttol.c"
+  1417 ;; Parameters:    Size  Location     Type
+  1418 ;;  f1              3    8[COMMON] float 
+  1419 ;; Auto vars:     Size  Location     Type
+  1420 ;;  lval            4    4[BANK0 ] unsigned long 
+  1421 ;;  exp1            1    8[BANK0 ] unsigned char 
+  1422 ;;  sign1           1    3[BANK0 ] unsigned char 
+  1423 ;; Return value:  Size  Location     Type
+  1424 ;;                  4    8[COMMON] long 
+  1425 ;; Registers used:
+  1426 ;;		wreg, status,2, status,0
+  1427 ;; Tracked objects:
+  1428 ;;		On entry : 17F/0
+  1429 ;;		On exit  : 17F/0
+  1430 ;;		Unchanged: FFE80/0
+  1431 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1432 ;;      Params:         4       0       0       0       0
+  1433 ;;      Locals:         0       6       0       0       0
+  1434 ;;      Temps:          0       3       0       0       0
+  1435 ;;      Totals:         4       9       0       0       0
+  1436 ;;Total ram usage:       13 bytes
+  1437 ;; Hardware stack levels used:    1
+  1438 ;; This function calls:
+  1439 ;;		Nothing
+  1440 ;; This function is called by:
+  1441 ;;		_main
+  1442 ;; This function uses a non-reentrant model
+  1443 ;;
+  1444  058B                     ___fttol:	
+  1445                           
+  1446                           ; Regs used in ___fttol: [wreg+status,2+status,0]
+  1447  058B  25E6  120A  118A   	fcall	PL4	;call to abstracted procedure
+  1448  058E  1003               	clrc
+  1449  058F  0D21               	rlf	??___fttol+1,w
+  1450  0590  0D22               	rlf	??___fttol+2,w
+  1451  0591  00A8               	movwf	___fttol@exp1
+  1452  0592  08A8               	movf	___fttol@exp1,f
+  1453  0593  1D03               	skipz
+  1454  0594  2D9A               	goto	l2257
+  1455  0595                     l2255:	
+  1456  0595  01F8               	clrf	?___fttol
+  1457  0596  01F9               	clrf	?___fttol+1
+  1458  0597  01FA               	clrf	?___fttol+2
+  1459  0598  01FB               	clrf	?___fttol+3
+  1460  0599  0008               	return
+  1461  059A                     l2257:	
+  1462  059A  25E6  120A  118A   	fcall	PL4	;call to abstracted procedure
+  1463  059D  3017               	movlw	23
+  1464  059E                     u495:	
+  1465  059E  1003               	clrc
+  1466  059F  0CA2               	rrf	??___fttol+2,f
+  1467  05A0  0CA1               	rrf	??___fttol+1,f
+  1468  05A1  0CA0               	rrf	??___fttol,f
+  1469  05A2  3EFF               	addlw	-1
+  1470  05A3  1D03               	skipz
+  1471  05A4  2D9E               	goto	u495
+  1472  05A5  0820               	movf	??___fttol,w
+  1473  05A6  00A3               	movwf	___fttol@sign1
+  1474  05A7  17F9               	bsf	___fttol@f1+1,7
+  1475  05A8  01FA               	clrf	___fttol@f1+2
+  1476  05A9  0878               	movf	___fttol@f1,w
+  1477  05AA  00A4               	movwf	___fttol@lval
+  1478  05AB  0879               	movf	___fttol@f1+1,w
+  1479  05AC  00A5               	movwf	___fttol@lval+1
+  1480  05AD  087A               	movf	___fttol@f1+2,w
+  1481  05AE  00A6               	movwf	___fttol@lval+2
+  1482  05AF  308E               	movlw	142
+  1483  05B0  01A7               	clrf	___fttol@lval+3
+  1484  05B1  02A8               	subwf	___fttol@exp1,f
+  1485  05B2  1FA8               	btfss	___fttol@exp1,7
+  1486  05B3  2DC1               	goto	l2277
+  1487  05B4  0828               	movf	___fttol@exp1,w
+  1488  05B5  3A80               	xorlw	128
+  1489  05B6  3E8F               	addlw	143
+  1490  05B7  1C03               	btfss	3,0
+  1491  05B8  2D95               	goto	l2255
+  1492  05B9                     l2273:	
+  1493  05B9  1003               	clrc
+  1494  05BA  0CA7               	rrf	___fttol@lval+3,f
+  1495  05BB  0CA6               	rrf	___fttol@lval+2,f
+  1496  05BC  0CA5               	rrf	___fttol@lval+1,f
+  1497  05BD  0CA4               	rrf	___fttol@lval,f
+  1498  05BE  0FA8               	incfsz	___fttol@exp1,f
+  1499  05BF  2DB9               	goto	l2273
+  1500  05C0  2DCF               	goto	l2283
+  1501  05C1                     l2277:	
+  1502  05C1  3018               	movlw	24
+  1503  05C2  0228               	subwf	___fttol@exp1,w
+  1504  05C3  1803               	btfsc	3,0
+  1505  05C4  2D95               	goto	l2255
+  1506  05C5                     l1570:	
+  1507  05C5  08A8               	movf	___fttol@exp1,f
+  1508  05C6  1903               	btfsc	3,2
+  1509  05C7  2DCF               	goto	l2283
+  1510  05C8  1003               	clrc
+  1511  05C9  0DA4               	rlf	___fttol@lval,f
+  1512  05CA  0DA5               	rlf	___fttol@lval+1,f
+  1513  05CB  0DA6               	rlf	___fttol@lval+2,f
+  1514  05CC  0DA7               	rlf	___fttol@lval+3,f
+  1515  05CD  03A8               	decf	___fttol@exp1,f
+  1516  05CE  2DC5               	goto	l1570
+  1517  05CF                     l2283:	
+  1518  05CF  0823               	movf	___fttol@sign1,w
+  1519  05D0  1903               	btfsc	3,2
+  1520  05D1  2DDD               	goto	l2287
+  1521  05D2  09A4               	comf	___fttol@lval,f
+  1522  05D3  09A5               	comf	___fttol@lval+1,f
+  1523  05D4  09A6               	comf	___fttol@lval+2,f
+  1524  05D5  09A7               	comf	___fttol@lval+3,f
+  1525  05D6  0AA4               	incf	___fttol@lval,f
+  1526  05D7  1903               	skipnz
+  1527  05D8  0AA5               	incf	___fttol@lval+1,f
+  1528  05D9  1903               	skipnz
+  1529  05DA  0AA6               	incf	___fttol@lval+2,f
+  1530  05DB  1903               	skipnz
+  1531  05DC  0AA7               	incf	___fttol@lval+3,f
+  1532  05DD                     l2287:	
+  1533  05DD  0827               	movf	___fttol@lval+3,w
+  1534  05DE  00FB               	movwf	?___fttol+3
+  1535  05DF  0826               	movf	___fttol@lval+2,w
+  1536  05E0  00FA               	movwf	?___fttol+2
+  1537  05E1  0825               	movf	___fttol@lval+1,w
+  1538  05E2  00F9               	movwf	?___fttol+1
+  1539  05E3  0824               	movf	___fttol@lval,w
+  1540  05E4  00F8               	movwf	?___fttol
+  1541  05E5  0008               	return
+  1542  05E6                     __end_of___fttol:	
+  1543  05E6                     PL4:	
+  1544  05E6  0878               	movf	___fttol@f1,w
+  1545  05E7  00A0               	movwf	??___fttol
+  1546  05E8  0879               	movf	___fttol@f1+1,w
+  1547  05E9  00A1               	movwf	??___fttol+1
+  1548  05EA  087A               	movf	___fttol@f1+2,w
+  1549  05EB  00A2               	movwf	??___fttol+2
+  1550  05EC  0008               	return
+  1551                           
+  1552                           	psect	text267
+  1553  0547                     __ptext267:	
+  1554 ;; =============== function _delay_1ms ends ============
+  1555                           
+  1556                           
+  1557 ;; *************** function _motion_Stop *****************
+  1558 ;; Defined at:
+  1559 ;;		line 151 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1560 ;; Parameters:    Size  Location     Type
+  1561 ;;		None
+  1562 ;; Auto vars:     Size  Location     Type
+  1563 ;;		None
+  1564 ;; Return value:  Size  Location     Type
+  1565 ;;		None               void
+  1566 ;; Registers used:
+  1567 ;;		None
+  1568 ;; Tracked objects:
+  1569 ;;		On entry : 17F/0
+  1570 ;;		On exit  : 17F/0
+  1571 ;;		Unchanged: FFE80/0
+  1572 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1573 ;;      Params:         0       0       0       0       0
+  1574 ;;      Locals:         0       0       0       0       0
+  1575 ;;      Temps:          0       0       0       0       0
+  1576 ;;      Totals:         0       0       0       0       0
+  1577 ;;Total ram usage:        0 bytes
+  1578 ;; Hardware stack levels used:    1
+  1579 ;; This function calls:
+  1580 ;;		Nothing
+  1581 ;; This function is called by:
+  1582 ;;		_main
+  1583 ;; This function uses a non-reentrant model
+  1584 ;;
+  1585  0547                     _motion_Stop:	
+  1586                           
+  1587                           ;main_1.c: 153: RC5 = 0;
+  1588                           
+  1589                           ; Regs used in _motion_Stop: []
+  1590  0547  1287               	bcf	7,5
+  1591                           
+  1592                           ;main_1.c: 154: RC6 = 0;
+  1593  0548  1307               	bcf	7,6
+  1594  0549  0008               	return
+  1595  054A                     __end_of_motion_Stop:	
+  1596                           
+  1597                           	psect	text268
+  1598  0558                     __ptext268:	
+  1599 ;; =============== function _motion_Stop ends ============
+  1600                           
+  1601                           
+  1602 ;; *************** function _delay_10us *****************
+  1603 ;; Defined at:
+  1604 ;;		line 183 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1605 ;; Parameters:    Size  Location     Type
+  1606 ;;  n               2    0[COMMON] unsigned int 
+  1607 ;; Auto vars:     Size  Location     Type
+  1608 ;;		None
+  1609 ;; Return value:  Size  Location     Type
+  1610 ;;		None               void
+  1611 ;; Registers used:
+  1612 ;;		wreg, status,2, status,0
+  1613 ;; Tracked objects:
+  1614 ;;		On entry : 17F/0
+  1615 ;;		On exit  : 15F/0
+  1616 ;;		Unchanged: FFE80/0
+  1617 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1618 ;;      Params:         2       0       0       0       0
+  1619 ;;      Locals:         0       0       0       0       0
+  1620 ;;      Temps:          0       0       0       0       0
+  1621 ;;      Totals:         2       0       0       0       0
+  1622 ;;Total ram usage:        2 bytes
+  1623 ;; Hardware stack levels used:    1
+  1624 ;; This function calls:
+  1625 ;;		Nothing
+  1626 ;; This function is called by:
+  1627 ;;		_main
+  1628 ;; This function uses a non-reentrant model
+  1629 ;;
+  1630  0558                     _delay_10us:	
+  1631                           
+  1632                           ;main_1.c: 184: OPTION_REG = 0x00;
+  1633                           
+  1634                           ; Regs used in _delay_10us: [wreg+status,2+status,0]
+  1635  0558  1683               	bsf	3,5	;RP0=1, select bank1
+  1636  0559  0181               	clrf	1	;volatile
+  1637                           
+  1638                           ;main_1.c: 185: T0IF = 0;
+  1639  055A  110B               	bcf	11,2
+  1640                           
+  1641                           ;main_1.c: 187: for (i=0; i<n; i++) {
+  1642  055B  01FC               	clrf	_i
+  1643  055C  01FD               	clrf	_i+1
+  1644  055D                     l2209:	
+  1645  055D  0871               	movf	delay_10us@n+1,w
+  1646  055E  027D               	subwf	_i+1,w
+  1647  055F  1D03               	skipz
+  1648  0560  2D63               	goto	u385
+  1649  0561  0870               	movf	delay_10us@n,w
+  1650  0562  027C               	subwf	_i,w
+  1651  0563                     u385:	
+  1652  0563  1803               	btfsc	3,0
+  1653  0564  0008               	return
+  1654                           
+  1655                           ;main_1.c: 188: TMR0 = 242;
+  1656  0565  30F2               	movlw	242
+  1657  0566  1283               	bcf	3,5	;RP0=0, select bank0
+  1658  0567  0081               	movwf	1	;volatile
+  1659  0568                     l757:	
+  1660                           ;main_1.c: 189: while(!T0IF);
+  1661                           
+  1662  0568  1D0B               	btfss	11,2
+  1663  0569  2D68               	goto	l757
+  1664                           
+  1665                           ;main_1.c: 190: T0IF = 0;
+  1666  056A  110B               	bcf	11,2
+  1667  056B  0AFC               	incf	_i,f
+  1668  056C  1903               	skipnz
+  1669  056D  0AFD               	incf	_i+1,f
+  1670  056E  2D5D               	goto	l2209
+  1671  056F                     __end_of_delay_10us:	
+  1672                           
+  1673                           	psect	text269
+  1674  056F                     __ptext269:	
+  1675 ;; =============== function _delay_10us ends ============
+  1676                           
+  1677                           
+  1678 ;; *************** function _init *****************
+  1679 ;; Defined at:
+  1680 ;;		line 98 in file "E:\PIC_ObsAvoCar\all\main_1.c"
+  1681 ;; Parameters:    Size  Location     Type
+  1682 ;;		None
+  1683 ;; Auto vars:     Size  Location     Type
+  1684 ;;		None
+  1685 ;; Return value:  Size  Location     Type
+  1686 ;;		None               void
+  1687 ;; Registers used:
+  1688 ;;		wreg, status,2
+  1689 ;; Tracked objects:
+  1690 ;;		On entry : 17F/0
+  1691 ;;		On exit  : 17F/0
+  1692 ;;		Unchanged: FFE80/0
+  1693 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1694 ;;      Params:         0       0       0       0       0
+  1695 ;;      Locals:         0       0       0       0       0
+  1696 ;;      Temps:          0       0       0       0       0
+  1697 ;;      Totals:         0       0       0       0       0
+  1698 ;;Total ram usage:        0 bytes
+  1699 ;; Hardware stack levels used:    1
+  1700 ;; This function calls:
+  1701 ;;		Nothing
+  1702 ;; This function is called by:
+  1703 ;;		_main
+  1704 ;; This function uses a non-reentrant model
+  1705 ;;
+  1706  056F                     _init:	
+  1707                           
+  1708                           ;main_1.c: 100: TRISC2=1;
+  1709                           
+  1710                           ; Regs used in _init: [wreg+status,2]
+  1711  056F  1683               	bsf	3,5	;RP0=1, select bank1
+  1712  0570  3005               	movlw	5
+  1713  0571  1507               	bsf	7,2
+  1714                           
+  1715                           ;main_1.c: 101: CCP1CON = 0b00000101;
+  1716  0572  1283               	bcf	3,5	;RP0=0, select bank0
+  1717  0573  0097               	movwf	23	;volatile
+  1718                           
+  1719                           ;main_1.c: 102: CCPR1L = 0;
+  1720  0574  0195               	clrf	21	;volatile
+  1721                           
+  1722                           ;main_1.c: 103: CCPR1H = 0;
+  1723  0575  0196               	clrf	22	;volatile
+  1724                           
+  1725                           ;main_1.c: 104: CCP1IF = 0;
+  1726  0576  110C               	bcf	12,2
+  1727                           
+  1728                           ;main_1.c: 107: TRISC1 = 0;
+  1729  0577  1683               	bsf	3,5	;RP0=1, select bank1
+  1730  0578  1087               	bcf	7,1
+  1731                           
+  1732                           ;main_1.c: 108: RC1 = 0;
+  1733  0579  1283               	bcf	3,5	;RP0=0, select bank0
+  1734  057A  1087               	bcf	7,1
+  1735                           
+  1736                           ;main_1.c: 111: TRISC2 = 1;
+  1737  057B  1683               	bsf	3,5	;RP0=1, select bank1
+  1738  057C  1507               	bsf	7,2
+  1739                           
+  1740                           ;main_1.c: 114: TRISC4 = 0;
+  1741  057D  1207               	bcf	7,4
+  1742                           
+  1743                           ;main_1.c: 115: TRISC5 = 0;
+  1744  057E  1287               	bcf	7,5
+  1745                           
+  1746                           ;main_1.c: 116: TRISC6 = 0;
+  1747  057F  1307               	bcf	7,6
+  1748                           
+  1749                           ;main_1.c: 117: TRISC7 = 0;
+  1750  0580  1387               	bcf	7,7
+  1751                           
+  1752                           ;main_1.c: 118: RC4 = 0;
+  1753  0581  1283               	bcf	3,5	;RP0=0, select bank0
+  1754  0582  1207               	bcf	7,4
+  1755                           
+  1756                           ;main_1.c: 119: RC5 = 0;
+  1757  0583  1287               	bcf	7,5
+  1758                           
+  1759                           ;main_1.c: 120: RC6 = 0;
+  1760  0584  1307               	bcf	7,6
+  1761                           
+  1762                           ;main_1.c: 121: RC7 = 0;
+  1763  0585  1387               	bcf	7,7
+  1764                           
+  1765                           ;main_1.c: 124: TRISD7 = 0;
+  1766  0586  1683               	bsf	3,5	;RP0=1, select bank1
+  1767  0587  1388               	bcf	8,7
+  1768                           
+  1769                           ;main_1.c: 125: RD7 = 0;
+  1770  0588  1283               	bcf	3,5	;RP0=0, select bank0
+  1771  0589  1388               	bcf	8,7
+  1772  058A  0008               	return
+  1773  058B                     __end_of_init:	
+  1774                           
+  1775                           	psect	text270
+  1776  0000                     __ptext270:	
+  1777 ;; =============== function _init ends ============
+  1778                           
+  1779  007E                     btemp	set	126	;btemp
+  1780  007E                     wtemp0	set	126
+
+
+HI-TECH Software PICC Macro Assembler V9.83 build 10920 
+Symbol Table                                                                                   Fri Dec 12 17:41:02 2014
+
+                        _i 007C                          _s 003D                          _t 0041  
+          _motion_LeftTurn 060B                        l712 072D                        l740 0000  
+                      l743 0000                        l752 0000                        l737 0000  
+                      l761 0000                        l746 0000                        l770 0000  
+                      l757 0568                        l749 0000                        l766 0641  
+                      _RC1 0039                        _RC4 003C                        _RC5 003D  
+                      _RC6 003E                        _RC7 003F                        _RD7 0047  
+                      u405 063C                        u385 0563                        u490 0000  
+                      u495 059E                       l2201 0000                       l2203 0000  
+                     l2211 0000                       l2221 0000                       l2213 0000  
+                     l2301 0000                       l2207 0000                       l2223 0636  
+                     l2215 0000                       l2303 0000                       l2311 0000  
+                     l2209 055D                       l2217 0000                       l2241 06F7  
+                     l2233 06DE                       l2225 0000                       l2305 0000  
+                     l2313 0000                       l2321 0000                       l2401 0000  
+                     l2171 0000                       l2251 0000                       l2243 06FC  
+                     l2235 06E3                       l2227 0000                       l2315 0000  
+                     l2307 0000                       l2323 0000                       l2411 0000  
+                     l2403 0748                       l2181 0000                       l2173 0000  
+                     l2165 0000                       l2237 06E8                       l2229 06DA  
+                     l2261 0000                       l2253 0000                       l2309 0000  
+                     l2325 0000                       l2317 0000                       l2341 0000  
+                     l2333 0674                       l2421 0000                       l2413 0000  
+                     l2405 0735                       l2191 0000                       l2183 0000  
+                     l2175 0000                       l2167 0000                       l2247 0000  
+                     l2239 06F2                       l2263 0000                       l2255 0595  
+                     l2319 0000                       l2351 0000                       l2343 0000  
+                     l2327 0000                       l2431 0000                       l2423 078D  
+                     l2407 074A                       l2193 0000                       l2185 0000  
+                     l2177 0000                       l2169 0000                       l2249 0000  
+                     l2273 05B9                       l2265 0000                       l2257 059A  
+                     l2361 06A0                       l2353 0000                       l2345 0000  
+                     l2441 07BF                       l2433 0000                       l2425 0000  
+                     l2417 0000                       l2409 0000                       l1570 05C5  
+                     l2195 0000                       l2187 0000                       l2179 0000  
+                     l2283 05CF                       l2275 0000                       l2267 0000  
+                     l2259 0000                       l2291 0000                       l2363 0000  
+                     l2355 0000                       l2347 0000                       l2339 0685  
+                     l2451 0000                       l2435 0000                       l2427 0795  
+                     l2197 0000                       l2189 0000                       l2285 0000  
+                     l2277 05C1                       l2293 0000                       l2373 06B6  
+                     l2365 0000                       l2357 0696                       l2349 0000  
+                     l2453 07DC                       l2445 0000                       l2461 07EE  
+                     l2437 0000                       l2429 079B                       l2199 0000  
+                     l2287 05DD                       l2295 0000                       l2375 0000  
+                     l2367 0000                       l2383 0000                       l2447 07CE  
+                     l2463 07F7                       l2391 0000                       l2297 0000  
+                     l2377 0000                       l2369 06AC                       l2457 0000  
+                     l2393 0000                       l2299 0000                       l2379 0000  
+                     l2459 07EC                       l2395 0000                       l2387 0000  
+                     l1676 0000                       l2397 0000                       l2389 071F  
+                     _T0IF 005A                       _TMR0 0001                       _main 071A  
+             ___ftpack@arg 0070                       _init 056F               ___ftpack@exp 0073  
+                     btemp 007E           _motion_RightTurn 05FA                       start 0000  
+             ___ftmul@cntr 0039               ___ftmul@sign 003A               ___fttol@exp1 0028  
+             ___fttol@lval 0024                      ?_main 0070                      ?_init 0070  
+          __end_of___ftmul 06D2            __end_of___fttol 05E6    __end_of_motion_Backward 05FA  
+            ___ftpack@sign 0074                      status 0003                      wtemp0 007E  
+  __end_of_motion_LeftTurn 061C               __end_of_main 0800               __end_of_init 058B  
+                   ??_main 007C              ___fttol@sign1 0023                     ??_init 0070  
+                   _CCP1IF 0062                     _CCPR1H 0016                     _CCPR1L 0015  
+         __end_of___ftpack 0710           __end_of___lwtoft 0663                     _TRISC1 0439  
+                   _TRISC2 043A                     _TRISC4 043C                     _TRISC5 043D  
+                   _TRISC6 043E                     _TRISC7 043F                     _TRISD7 0447  
+             ?_motion_Stop 0070                  ??___ftmul 0032                  ??___fttol 0020  
+        motion_Backward@tt 0072                     _status 003F      ___ftmul@f3_as_product 0036  
+         ?_motion_Backward 0072           ?_motion_LeftTurn 0072                 ___ftmul@f1 002C  
+               ___ftmul@f2 002F                 ___fttol@f1 0078             __pcstackCOMMON 0070  
+       __size_of_delay_1ms 0019                 ___lwtoft@c 0029   __end_of_motion_RightTurn 060B  
+  __size_of_motion_Forward 0013                 __pbssBANK0 003B                 _delay_10us 0558  
+               __pmaintext 071A                    _CCP1CON 0017                  ?___ftpack 0070  
+                ?___lwtoft 0029       motion_LeftTurn@angle 0072          __end_of_delay_1ms 0648  
+                  ___ftmul 0663                    ___fttol 058B                 ??___ftpack 0075  
+     __size_of_motion_Stop 0003                 ??___lwtoft 007C                 delay_1ms@n 0070  
+     end_of_initialization 0554                ?_delay_10us 0070             _motion_Forward 061C  
+              ___ftmul@exp 0035        __size_of_delay_10us 0017          ?_motion_RightTurn 0072  
+      start_initialization 054A     __end_of_motion_Forward 062F         ??_motion_RightTurn 0074  
+ __size_of_motion_Backward 000D   __size_of_motion_LeftTurn 0011          __size_of___ftpack 003E  
+              __pbssCOMMON 007C          __size_of___lwtoft 0010              __pcstackBANK0 0020  
+          ?_motion_Forward 0070                  _delay_1ms 062F                  __ptext260 05FA  
+                __ptext261 060B                  __ptext270 0000                  __ptext262 05ED  
+                __ptext263 061C                  __ptext264 058B                  __ptext265 06D2  
+                __ptext257 0000                  __ptext266 062F                  __ptext258 0653  
+                __ptext267 0547                  __ptext259 0663                  __ptext268 0558  
+                __ptext269 056F                   ?___ftmul 002C                   ?___fttol 0078  
+             ??_delay_10us 0072                 ?_delay_1ms 0070                  _road_pass 003B  
+            ??_motion_Stop 0070          ??_motion_Backward 0074         __end_of_delay_10us 056F  
+        ??_motion_LeftTurn 0074           __size_of___ftmul 006F           __size_of___fttol 005B  
+                 ___ftpack 06D2                   ___lwtoft 0653        __end_of_motion_Stop 054A  
+              delay_10us@n 0070              __size_of_main 00E6              __size_of_init 001C  
+__size_of_motion_RightTurn 0011                ??_delay_1ms 0072      motion_RightTurn@angle 0072  
+         ??_motion_Forward 0072                _motion_Stop 0547                 _OPTION_REG 0081  
+          _motion_Backward 05ED  

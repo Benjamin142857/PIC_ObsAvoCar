@@ -1,0 +1,14 @@
+_init: CODE, 1184 0 40
+_motion_RightTurn: CODE, 1076 0 33
+_motion_Forward: CODE, 990 0 7
+___ftpack: CODE, 1306 0 123
+_main: CODE, 1595 0 215
+___lwtoft: CODE, 1016 0 27
+_get_Ultrasonic: CODE, 1224 0 82
+_delay_1ms: CODE, 1146 0 38
+_delay_10us: CODE, 1109 0 37
+_motion_LeftTurn: CODE, 1043 0 33
+___ftmul: CODE, 1810 0 238
+___fttol: CODE, 1429 0 166
+_motion_Stop: CODE, 997 0 7
+Total: 1046

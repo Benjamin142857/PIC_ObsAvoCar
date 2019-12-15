@@ -1,0 +1,1101 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.82 build 9453 
+                                                                                               Tue Dec 10 22:28:54 2019
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 9453
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 9453"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F877A
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           	FNCALL	_main,_init
+    43                           	FNCALL	_main,_delay_10ms
+    44                           	FNCALL	_main,_motion_Forward
+    45                           	FNCALL	_main,_motion_Stop
+    46                           	FNCALL	_main,_motion_LeftTurn
+    47                           	FNCALL	_main,_motion_RightTurn
+    48                           	FNCALL	_motion_RightTurn,_delay_10ms
+    49                           	FNCALL	_motion_LeftTurn,_delay_10ms
+    50                           	FNROOT	_main
+    51                           	global	_i
+    52                           	global	_TMR0
+    53                           psect	text136,local,class=CODE,delta=2
+    54                           global __ptext136
+    55  0000                     __ptext136:
+    56  0001                     _TMR0	set	1
+    57                           	global	_CARRY
+    58  0018                     _CARRY	set	24
+    59                           	global	_GIE
+    60  005F                     _GIE	set	95
+    61                           	global	_RC4
+    62  003C                     _RC4	set	60
+    63                           	global	_RC5
+    64  003D                     _RC5	set	61
+    65                           	global	_RC6
+    66  003E                     _RC6	set	62
+    67                           	global	_RC7
+    68  003F                     _RC7	set	63
+    69                           	global	_RD1
+    70  0041                     _RD1	set	65
+    71                           	global	_T0IF
+    72  005A                     _T0IF	set	90
+    73                           	global	_OPTION_REG
+    74  0081                     _OPTION_REG	set	129
+    75                           	global	_TRISC4
+    76  043C                     _TRISC4	set	1084
+    77                           	global	_TRISC5
+    78  043D                     _TRISC5	set	1085
+    79                           	global	_TRISC6
+    80  043E                     _TRISC6	set	1086
+    81                           	global	_TRISC7
+    82  043F                     _TRISC7	set	1087
+    83                           	global	_TRISD1
+    84  0441                     _TRISD1	set	1089
+    85                           	global	_EEADR
+    86  010D                     _EEADR	set	269
+    87                           	global	_EEDATA
+    88  010C                     _EEDATA	set	268
+    89                           	global	_EECON1
+    90  018C                     _EECON1	set	396
+    91                           	global	_EECON2
+    92  018D                     _EECON2	set	397
+    93                           	global	_RD
+    94  0C60                     _RD	set	3168
+    95                           	global	_WR
+    96  0C61                     _WR	set	3169
+    97                           	global	_WREN
+    98  0C62                     _WREN	set	3170
+    99                           	file	"project.as"
+   100                           	line	#
+   101                           psect cinit,class=CODE,delta=2
+   102                           global start_initialization
+   103  071E                     start_initialization:
+   104                           
+   105                           psect	bssCOMMON,class=COMMON,space=1
+   106                           global __pbssCOMMON
+   107  0076                     __pbssCOMMON:
+   108  0076                     _i:
+   109  0076                            ds      2
+   110                           
+   111                           ; Clear objects allocated to COMMON
+   112                           psect cinit,class=CODE,delta=2
+   113  071E  01F6               	clrf	((__pbssCOMMON)+0)&07Fh
+   114  071F  01F7               	clrf	((__pbssCOMMON)+1)&07Fh
+   115                           psect cinit,class=CODE,delta=2
+   116                           global end_of_initialization
+   117                           
+   118                           ;End of C runtime variable initialization code
+   119                           
+   120  0720                     end_of_initialization:
+   121  0720  0183               clrf status
+   122  0721  120A  118A  2FA6   ljmp _main	;jump to C main() function
+   123                           psect	cstackCOMMON,class=COMMON,space=1
+   124                           global __pcstackCOMMON
+   125  0070                     __pcstackCOMMON:
+   126                           	global	?_init
+   127  0070                     ?_init:	; 0 bytes @ 0x0
+   128                           	global	??_init
+   129  0070                     ??_init:	; 0 bytes @ 0x0
+   130                           	global	?_delay_10ms
+   131  0070                     ?_delay_10ms:	; 0 bytes @ 0x0
+   132                           	global	?_motion_Forward
+   133  0070                     ?_motion_Forward:	; 0 bytes @ 0x0
+   134                           	global	??_motion_Forward
+   135  0070                     ??_motion_Forward:	; 0 bytes @ 0x0
+   136                           	global	?_motion_Stop
+   137  0070                     ?_motion_Stop:	; 0 bytes @ 0x0
+   138                           	global	??_motion_Stop
+   139  0070                     ??_motion_Stop:	; 0 bytes @ 0x0
+   140                           	global	?_main
+   141  0070                     ?_main:	; 0 bytes @ 0x0
+   142                           	global	delay_10ms@n
+   143  0070                     delay_10ms@n:	; 2 bytes @ 0x0
+   144  0070                     	ds	2
+   145                           	global	??_delay_10ms
+   146  0072                     ??_delay_10ms:	; 0 bytes @ 0x2
+   147                           	global	?_motion_LeftTurn
+   148  0072                     ?_motion_LeftTurn:	; 0 bytes @ 0x2
+   149                           	global	?_motion_RightTurn
+   150  0072                     ?_motion_RightTurn:	; 0 bytes @ 0x2
+   151                           	global	motion_LeftTurn@angle
+   152  0072                     motion_LeftTurn@angle:	; 2 bytes @ 0x2
+   153                           	global	motion_RightTurn@angle
+   154  0072                     motion_RightTurn@angle:	; 2 bytes @ 0x2
+   155  0072                     	ds	2
+   156                           	global	??_motion_LeftTurn
+   157  0074                     ??_motion_LeftTurn:	; 0 bytes @ 0x4
+   158                           	global	??_motion_RightTurn
+   159  0074                     ??_motion_RightTurn:	; 0 bytes @ 0x4
+   160  0074                     	ds	2
+   161                           	global	??_main
+   162  0076                     ??_main:	; 0 bytes @ 0x6
+   163 ;;Data sizes: Strings 0, constant 0, data 0, bss 2, persistent 0 stack 0
+   164 ;;Auto spaces:   Size  Autos    Used
+   165 ;; COMMON          14      6       8
+   166 ;; BANK0           80      0       0
+   167 ;; BANK1           80      0       0
+   168 ;; BANK3           96      0       0
+   169 ;; BANK2           96      0       0
+   170                           
+   171 ;;
+   172 ;; Pointer list with targets:
+   173                           
+   174                           
+   175                           
+   176 ;;
+   177 ;; Critical Paths under _main in COMMON
+   178 ;;
+   179 ;;   _main->_motion_LeftTurn
+   180 ;;   _main->_motion_RightTurn
+   181 ;;   _motion_RightTurn->_delay_10ms
+   182 ;;   _motion_LeftTurn->_delay_10ms
+   183 ;;
+   184 ;; Critical Paths under _main in BANK0
+   185 ;;
+   186 ;;   None.
+   187 ;;
+   188 ;; Critical Paths under _main in BANK1
+   189 ;;
+   190 ;;   None.
+   191 ;;
+   192 ;; Critical Paths under _main in BANK3
+   193 ;;
+   194 ;;   None.
+   195 ;;
+   196 ;; Critical Paths under _main in BANK2
+   197 ;;
+   198 ;;   None.
+   199                           
+   200 ;;
+   201 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   202 ;;
+   203                           
+   204 ;;
+   205 ;;Call Graph Tables:
+   206 ;;
+   207 ;; ---------------------------------------------------------------------------------
+   208 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   209 ;; ---------------------------------------------------------------------------------
+   210 ;; (0) _main                                                 0     0      0      75
+   211 ;;                               _init
+   212 ;;                         _delay_10ms
+   213 ;;                     _motion_Forward
+   214 ;;                        _motion_Stop
+   215 ;;                    _motion_LeftTurn
+   216 ;;                   _motion_RightTurn
+   217 ;; ---------------------------------------------------------------------------------
+   218 ;; (1) _motion_RightTurn                                     4     2      2      30
+   219 ;;                                              2 COMMON     4     2      2
+   220 ;;                         _delay_10ms
+   221 ;; ---------------------------------------------------------------------------------
+   222 ;; (1) _motion_LeftTurn                                      4     2      2      30
+   223 ;;                                              2 COMMON     4     2      2
+   224 ;;                         _delay_10ms
+   225 ;; ---------------------------------------------------------------------------------
+   226 ;; (1) _motion_Stop                                          0     0      0       0
+   227 ;; ---------------------------------------------------------------------------------
+   228 ;; (1) _motion_Forward                                       0     0      0       0
+   229 ;; ---------------------------------------------------------------------------------
+   230 ;; (2) _delay_10ms                                           2     0      2      15
+   231 ;;                                              0 COMMON     2     0      2
+   232 ;; ---------------------------------------------------------------------------------
+   233 ;; (1) _init                                                 0     0      0       0
+   234 ;; ---------------------------------------------------------------------------------
+   235 ;; Estimated maximum stack depth 2
+   236 ;; ---------------------------------------------------------------------------------
+   237                           
+   238 ;; Call Graph Graphs:
+   239                           
+   240 ;; _main (ROOT)
+   241 ;;   _init
+   242 ;;   _delay_10ms
+   243 ;;   _motion_Forward
+   244 ;;   _motion_Stop
+   245 ;;   _motion_LeftTurn
+   246 ;;     _delay_10ms
+   247 ;;   _motion_RightTurn
+   248 ;;     _delay_10ms
+   249 ;;
+   250                           
+   251 ;; Address spaces:
+   252                           
+   253 ;;Name               Size   Autos  Total    Cost      Usage
+   254 ;;BITCOMMON            E      0       0       0        0.0%
+   255 ;;EEDATA             100      0       0       0        0.0%
+   256 ;;NULL                 0      0       0       0        0.0%
+   257 ;;CODE                 0      0       0       0        0.0%
+   258 ;;COMMON               E      6       8       1       57.1%
+   259 ;;BITSFR0              0      0       0       1        0.0%
+   260 ;;SFR0                 0      0       0       1        0.0%
+   261 ;;BITSFR1              0      0       0       2        0.0%
+   262 ;;SFR1                 0      0       0       2        0.0%
+   263 ;;STACK                0      0       2       2        0.0%
+   264 ;;ABS                  0      0       8       3        0.0%
+   265 ;;BITBANK0            50      0       0       4        0.0%
+   266 ;;BITSFR3              0      0       0       4        0.0%
+   267 ;;SFR3                 0      0       0       4        0.0%
+   268 ;;BANK0               50      0       0       5        0.0%
+   269 ;;BITSFR2              0      0       0       5        0.0%
+   270 ;;SFR2                 0      0       0       5        0.0%
+   271 ;;BITBANK1            50      0       0       6        0.0%
+   272 ;;BANK1               50      0       0       7        0.0%
+   273 ;;BITBANK3            60      0       0       8        0.0%
+   274 ;;BANK3               60      0       0       9        0.0%
+   275 ;;BITBANK2            60      0       0      10        0.0%
+   276 ;;BANK2               60      0       0      11        0.0%
+   277 ;;DATA                 0      0       A      12        0.0%
+   278                           
+   279                           	global	_main
+   280                           psect	maintext,global,class=CODE,delta=2
+   281                           global __pmaintext
+   282  07A6                     __pmaintext:
+   283                           
+   284 ;; *************** function _main *****************
+   285 ;; Defined at:
+   286 ;;		line 12 in file "E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   287 ;; Parameters:    Size  Location     Type
+   288 ;;		None
+   289 ;; Auto vars:     Size  Location     Type
+   290 ;;		None
+   291 ;; Return value:  Size  Location     Type
+   292 ;;		None               void
+   293 ;; Registers used:
+   294 ;;		wreg, status,2, status,0, pclath, cstack
+   295 ;; Tracked objects:
+   296 ;;		On entry : 17F/0
+   297 ;;		On exit  : 0/0
+   298 ;;		Unchanged: 0/0
+   299 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   300 ;;      Params:         0       0       0       0       0
+   301 ;;      Locals:         0       0       0       0       0
+   302 ;;      Temps:          0       0       0       0       0
+   303 ;;      Totals:         0       0       0       0       0
+   304 ;;Total ram usage:        0 bytes
+   305 ;; Hardware stack levels required when called:    2
+   306 ;; This function calls:
+   307 ;;		_init
+   308 ;;		_delay_10ms
+   309 ;;		_motion_Forward
+   310 ;;		_motion_Stop
+   311 ;;		_motion_LeftTurn
+   312 ;;		_motion_RightTurn
+   313 ;; This function is called by:
+   314 ;;		Startup code after reset
+   315 ;; This function uses a non-reentrant model
+   316 ;;
+   317                           psect	maintext
+   318                           	file	"E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   319                           	line	12
+   320                           	global	__size_of_main
+   321  005A                     	__size_of_main	equ	__end_of_main-_main
+   322                           	
+   323  07A6                     _main:	
+   324                           	opt	stack 6
+   325                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   326                           	line	13
+   327                           	
+   328  07A6                     l2671:	
+   329                           ;test1.c: 13: init();
+   330  07A6  120A  118A  2732   	fcall	_init
+              120A  118A         
+   331                           	line	14
+   332                           	
+   333  07AB                     l2673:	
+   334                           ;test1.c: 14: RD1 = 1;
+   335  07AB  1283               	bcf	status, 5	;RP0=0, select bank0
+   336  07AC  1303               	bcf	status, 6	;RP1=0, select bank0
+   337  07AD  1488               	bsf	(65/8),(65)&7
+   338  07AE  2FAF               	goto	l2675
+   339                           	line	17
+   340                           ;test1.c: 17: while(1) {
+   341                           	
+   342  07AF                     l699:	
+   343                           	line	18
+   344                           	
+   345  07AF                     l2675:	
+   346                           ;test1.c: 18: RD1 = 1;
+   347  07AF  1283               	bcf	status, 5	;RP0=0, select bank0
+   348  07B0  1303               	bcf	status, 6	;RP1=0, select bank0
+   349  07B1  1488               	bsf	(65/8),(65)&7
+   350                           	line	19
+   351                           	
+   352  07B2                     l2677:	
+   353                           ;test1.c: 19: delay_10ms(100);
+   354  07B2  3064               	movlw	low(064h)
+   355  07B3  00F0               	movwf	(?_delay_10ms)
+   356  07B4  3000               	movlw	high(064h)
+   357  07B5  00F1               	movwf	((?_delay_10ms))+1
+   358  07B6  120A  118A  2782   	fcall	_delay_10ms
+              120A  118A         
+   359                           	line	20
+   360                           	
+   361  07BB                     l2679:	
+   362                           ;test1.c: 20: RD1 = 0;
+   363  07BB  1283               	bcf	status, 5	;RP0=0, select bank0
+   364  07BC  1303               	bcf	status, 6	;RP1=0, select bank0
+   365  07BD  1088               	bcf	(65/8),(65)&7
+   366                           	line	21
+   367                           	
+   368  07BE                     l2681:	
+   369                           ;test1.c: 21: motion_Forward();
+   370  07BE  120A  118A  2724   	fcall	_motion_Forward
+              120A  118A         
+   371                           	line	22
+   372                           ;test1.c: 22: delay_10ms(100);
+   373  07C3  3064               	movlw	low(064h)
+   374  07C4  00F0               	movwf	(?_delay_10ms)
+   375  07C5  3000               	movlw	high(064h)
+   376  07C6  00F1               	movwf	((?_delay_10ms))+1
+   377  07C7  120A  118A  2782   	fcall	_delay_10ms
+              120A  118A         
+   378                           	line	23
+   379                           	
+   380  07CC                     l2683:	
+   381                           ;test1.c: 23: RD1 = 1;
+   382  07CC  1283               	bcf	status, 5	;RP0=0, select bank0
+   383  07CD  1303               	bcf	status, 6	;RP1=0, select bank0
+   384  07CE  1488               	bsf	(65/8),(65)&7
+   385                           	line	24
+   386                           	
+   387  07CF                     l2685:	
+   388                           ;test1.c: 24: motion_Stop();
+   389  07CF  120A  118A  272B   	fcall	_motion_Stop
+              120A  118A         
+   390                           	line	25
+   391                           	
+   392  07D4                     l2687:	
+   393                           ;test1.c: 25: delay_10ms(100);
+   394  07D4  3064               	movlw	low(064h)
+   395  07D5  00F0               	movwf	(?_delay_10ms)
+   396  07D6  3000               	movlw	high(064h)
+   397  07D7  00F1               	movwf	((?_delay_10ms))+1
+   398  07D8  120A  118A  2782   	fcall	_delay_10ms
+              120A  118A         
+   399                           	line	26
+   400                           	
+   401  07DD                     l2689:	
+   402                           ;test1.c: 26: RD1 = 0;
+   403  07DD  1283               	bcf	status, 5	;RP0=0, select bank0
+   404  07DE  1303               	bcf	status, 6	;RP1=0, select bank0
+   405  07DF  1088               	bcf	(65/8),(65)&7
+   406                           	line	27
+   407                           	
+   408  07E0                     l2691:	
+   409                           ;test1.c: 27: motion_LeftTurn(90);
+   410  07E0  305A               	movlw	low(05Ah)
+   411  07E1  00F2               	movwf	(?_motion_LeftTurn)
+   412  07E2  3000               	movlw	high(05Ah)
+   413  07E3  00F3               	movwf	((?_motion_LeftTurn))+1
+   414  07E4  120A  118A  2740   	fcall	_motion_LeftTurn
+              120A  118A         
+   415                           	line	28
+   416                           	
+   417  07E9                     l2693:	
+   418                           ;test1.c: 28: delay_10ms(100);
+   419  07E9  3064               	movlw	low(064h)
+   420  07EA  00F0               	movwf	(?_delay_10ms)
+   421  07EB  3000               	movlw	high(064h)
+   422  07EC  00F1               	movwf	((?_delay_10ms))+1
+   423  07ED  120A  118A  2782   	fcall	_delay_10ms
+              120A  118A         
+   424                           	line	29
+   425                           	
+   426  07F2                     l2695:	
+   427                           ;test1.c: 29: motion_RightTurn(90);
+   428  07F2  305A               	movlw	low(05Ah)
+   429  07F3  00F2               	movwf	(?_motion_RightTurn)
+   430  07F4  3000               	movlw	high(05Ah)
+   431  07F5  00F3               	movwf	((?_motion_RightTurn))+1
+   432  07F6  120A  118A  2761   	fcall	_motion_RightTurn
+              120A  118A         
+   433  07FB  2FAF               	goto	l2675
+   434                           	line	30
+   435                           	
+   436  07FC                     l700:	
+   437                           	line	17
+   438  07FC  2FAF               	goto	l2675
+   439                           	
+   440  07FD                     l701:	
+   441                           	line	32
+   442                           	
+   443  07FD                     l702:	
+   444                           	global	start
+   445  07FD  120A  118A  2800   	ljmp	start
+   446                           	opt stack 0
+   447                           GLOBAL	__end_of_main
+   448  0800                     	__end_of_main:
+   449 ;; =============== function _main ends ============
+   450                           
+   451                           	signat	_main,88
+   452                           	global	_motion_RightTurn
+   453                           psect	text137,local,class=CODE,delta=2
+   454                           global __ptext137
+   455  0761                     __ptext137:
+   456                           
+   457 ;; *************** function _motion_RightTurn *****************
+   458 ;; Defined at:
+   459 ;;		line 73 in file "E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   460 ;; Parameters:    Size  Location     Type
+   461 ;;  angle           2    2[COMMON] unsigned int 
+   462 ;; Auto vars:     Size  Location     Type
+   463 ;;		None
+   464 ;; Return value:  Size  Location     Type
+   465 ;;		None               void
+   466 ;; Registers used:
+   467 ;;		wreg, status,2, status,0, pclath, cstack
+   468 ;; Tracked objects:
+   469 ;;		On entry : 0/0
+   470 ;;		On exit  : 0/0
+   471 ;;		Unchanged: 0/0
+   472 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   473 ;;      Params:         2       0       0       0       0
+   474 ;;      Locals:         0       0       0       0       0
+   475 ;;      Temps:          2       0       0       0       0
+   476 ;;      Totals:         4       0       0       0       0
+   477 ;;Total ram usage:        4 bytes
+   478 ;; Hardware stack levels used:    1
+   479 ;; Hardware stack levels required when called:    1
+   480 ;; This function calls:
+   481 ;;		_delay_10ms
+   482 ;; This function is called by:
+   483 ;;		_main
+   484 ;; This function uses a non-reentrant model
+   485 ;;
+   486                           psect	text137
+   487                           	file	"E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   488                           	line	73
+   489                           	global	__size_of_motion_RightTurn
+   490  0021                     	__size_of_motion_RightTurn	equ	__end_of_motion_RightTurn-_motion_RightTurn
+   491                           	
+   492  0761                     _motion_RightTurn:	
+   493                           	opt	stack 6
+   494                           ; Regs used in _motion_RightTurn: [wreg+status,2+status,0+pclath+cstack]
+   495                           	line	74
+   496                           	
+   497  0761                     l2659:	
+   498                           ;test1.c: 74: RC4 = 0;
+   499  0761  1283               	bcf	status, 5	;RP0=0, select bank0
+   500  0762  1303               	bcf	status, 6	;RP1=0, select bank0
+   501  0763  1207               	bcf	(60/8),(60)&7
+   502                           	line	75
+   503                           ;test1.c: 75: RC5 = 1;
+   504  0764  1687               	bsf	(61/8),(61)&7
+   505                           	line	76
+   506                           ;test1.c: 76: RC6 = 1;
+   507  0765  1707               	bsf	(62/8),(62)&7
+   508                           	line	77
+   509                           ;test1.c: 77: RC7 = 1;
+   510  0766  1787               	bsf	(63/8),(63)&7
+   511                           	line	78
+   512                           	
+   513  0767                     l2661:	
+   514                           ;test1.c: 78: delay_10ms(angle/2);
+   515  0767  0873               	movf	(motion_RightTurn@angle+1),w
+   516  0768  00F5               	movwf	(??_motion_RightTurn+0)+0+1
+   517  0769  0872               	movf	(motion_RightTurn@angle),w
+   518  076A  00F4               	movwf	(??_motion_RightTurn+0)+0
+   519  076B  3001               	movlw	01h
+   520  076C                     u2255:
+   521  076C  1003               	clrc
+   522  076D  0CF5               	rrf	(??_motion_RightTurn+0)+1,f
+   523  076E  0CF4               	rrf	(??_motion_RightTurn+0)+0,f
+   524  076F  3EFF               	addlw	-1
+   525  0770  1D03               	skipz
+   526  0771  2F6C               	goto	u2255
+   527  0772  0874               	movf	0+(??_motion_RightTurn+0)+0,w
+   528  0773  00F0               	movwf	(?_delay_10ms)
+   529  0774  0875               	movf	1+(??_motion_RightTurn+0)+0,w
+   530  0775  00F1               	movwf	(?_delay_10ms+1)
+   531  0776  120A  118A  2782   	fcall	_delay_10ms
+              120A  118A         
+   532                           	line	79
+   533                           	
+   534  077B                     l2663:	
+   535                           ;test1.c: 79: RC4 = 0;
+   536  077B  1283               	bcf	status, 5	;RP0=0, select bank0
+   537  077C  1303               	bcf	status, 6	;RP1=0, select bank0
+   538  077D  1207               	bcf	(60/8),(60)&7
+   539                           	line	80
+   540                           	
+   541  077E                     l2665:	
+   542                           ;test1.c: 80: RC5 = 0;
+   543  077E  1287               	bcf	(61/8),(61)&7
+   544                           	line	81
+   545                           	
+   546  077F                     l2667:	
+   547                           ;test1.c: 81: RC6 = 0;
+   548  077F  1307               	bcf	(62/8),(62)&7
+   549                           	line	82
+   550                           	
+   551  0780                     l2669:	
+   552                           ;test1.c: 82: RC7 = 0;
+   553  0780  1387               	bcf	(63/8),(63)&7
+   554                           	line	83
+   555                           	
+   556  0781                     l717:	
+   557  0781  0008               	return
+   558                           	opt stack 0
+   559                           GLOBAL	__end_of_motion_RightTurn
+   560  0782                     	__end_of_motion_RightTurn:
+   561 ;; =============== function _motion_RightTurn ends ============
+   562                           
+   563                           	signat	_motion_RightTurn,4216
+   564                           	global	_motion_LeftTurn
+   565                           psect	text138,local,class=CODE,delta=2
+   566                           global __ptext138
+   567  0740                     __ptext138:
+   568                           
+   569 ;; *************** function _motion_LeftTurn *****************
+   570 ;; Defined at:
+   571 ;;		line 61 in file "E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   572 ;; Parameters:    Size  Location     Type
+   573 ;;  angle           2    2[COMMON] unsigned int 
+   574 ;; Auto vars:     Size  Location     Type
+   575 ;;		None
+   576 ;; Return value:  Size  Location     Type
+   577 ;;		None               void
+   578 ;; Registers used:
+   579 ;;		wreg, status,2, status,0, pclath, cstack
+   580 ;; Tracked objects:
+   581 ;;		On entry : 0/0
+   582 ;;		On exit  : 0/0
+   583 ;;		Unchanged: 0/0
+   584 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   585 ;;      Params:         2       0       0       0       0
+   586 ;;      Locals:         0       0       0       0       0
+   587 ;;      Temps:          2       0       0       0       0
+   588 ;;      Totals:         4       0       0       0       0
+   589 ;;Total ram usage:        4 bytes
+   590 ;; Hardware stack levels used:    1
+   591 ;; Hardware stack levels required when called:    1
+   592 ;; This function calls:
+   593 ;;		_delay_10ms
+   594 ;; This function is called by:
+   595 ;;		_main
+   596 ;; This function uses a non-reentrant model
+   597 ;;
+   598                           psect	text138
+   599                           	file	"E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   600                           	line	61
+   601                           	global	__size_of_motion_LeftTurn
+   602  0021                     	__size_of_motion_LeftTurn	equ	__end_of_motion_LeftTurn-_motion_LeftTurn
+   603                           	
+   604  0740                     _motion_LeftTurn:	
+   605                           	opt	stack 6
+   606                           ; Regs used in _motion_LeftTurn: [wreg+status,2+status,0+pclath+cstack]
+   607                           	line	62
+   608                           	
+   609  0740                     l2647:	
+   610                           ;test1.c: 62: RC4 = 1;
+   611  0740  1283               	bcf	status, 5	;RP0=0, select bank0
+   612  0741  1303               	bcf	status, 6	;RP1=0, select bank0
+   613  0742  1607               	bsf	(60/8),(60)&7
+   614                           	line	63
+   615                           ;test1.c: 63: RC5 = 1;
+   616  0743  1687               	bsf	(61/8),(61)&7
+   617                           	line	64
+   618                           ;test1.c: 64: RC6 = 1;
+   619  0744  1707               	bsf	(62/8),(62)&7
+   620                           	line	65
+   621                           ;test1.c: 65: RC7 = 0;
+   622  0745  1387               	bcf	(63/8),(63)&7
+   623                           	line	66
+   624                           	
+   625  0746                     l2649:	
+   626                           ;test1.c: 66: delay_10ms(angle/2);
+   627  0746  0873               	movf	(motion_LeftTurn@angle+1),w
+   628  0747  00F5               	movwf	(??_motion_LeftTurn+0)+0+1
+   629  0748  0872               	movf	(motion_LeftTurn@angle),w
+   630  0749  00F4               	movwf	(??_motion_LeftTurn+0)+0
+   631  074A  3001               	movlw	01h
+   632  074B                     u2245:
+   633  074B  1003               	clrc
+   634  074C  0CF5               	rrf	(??_motion_LeftTurn+0)+1,f
+   635  074D  0CF4               	rrf	(??_motion_LeftTurn+0)+0,f
+   636  074E  3EFF               	addlw	-1
+   637  074F  1D03               	skipz
+   638  0750  2F4B               	goto	u2245
+   639  0751  0874               	movf	0+(??_motion_LeftTurn+0)+0,w
+   640  0752  00F0               	movwf	(?_delay_10ms)
+   641  0753  0875               	movf	1+(??_motion_LeftTurn+0)+0,w
+   642  0754  00F1               	movwf	(?_delay_10ms+1)
+   643  0755  120A  118A  2782   	fcall	_delay_10ms
+              120A  118A         
+   644                           	line	67
+   645                           	
+   646  075A                     l2651:	
+   647                           ;test1.c: 67: RC4 = 0;
+   648  075A  1283               	bcf	status, 5	;RP0=0, select bank0
+   649  075B  1303               	bcf	status, 6	;RP1=0, select bank0
+   650  075C  1207               	bcf	(60/8),(60)&7
+   651                           	line	68
+   652                           	
+   653  075D                     l2653:	
+   654                           ;test1.c: 68: RC5 = 0;
+   655  075D  1287               	bcf	(61/8),(61)&7
+   656                           	line	69
+   657                           	
+   658  075E                     l2655:	
+   659                           ;test1.c: 69: RC6 = 0;
+   660  075E  1307               	bcf	(62/8),(62)&7
+   661                           	line	70
+   662                           	
+   663  075F                     l2657:	
+   664                           ;test1.c: 70: RC7 = 0;
+   665  075F  1387               	bcf	(63/8),(63)&7
+   666                           	line	71
+   667                           	
+   668  0760                     l714:	
+   669  0760  0008               	return
+   670                           	opt stack 0
+   671                           GLOBAL	__end_of_motion_LeftTurn
+   672  0761                     	__end_of_motion_LeftTurn:
+   673 ;; =============== function _motion_LeftTurn ends ============
+   674                           
+   675                           	signat	_motion_LeftTurn,4216
+   676                           	global	_motion_Stop
+   677                           psect	text139,local,class=CODE,delta=2
+   678                           global __ptext139
+   679  072B                     __ptext139:
+   680                           
+   681 ;; *************** function _motion_Stop *****************
+   682 ;; Defined at:
+   683 ;;		line 54 in file "E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   684 ;; Parameters:    Size  Location     Type
+   685 ;;		None
+   686 ;; Auto vars:     Size  Location     Type
+   687 ;;		None
+   688 ;; Return value:  Size  Location     Type
+   689 ;;		None               void
+   690 ;; Registers used:
+   691 ;;		None
+   692 ;; Tracked objects:
+   693 ;;		On entry : 0/0
+   694 ;;		On exit  : 0/0
+   695 ;;		Unchanged: 0/0
+   696 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   697 ;;      Params:         0       0       0       0       0
+   698 ;;      Locals:         0       0       0       0       0
+   699 ;;      Temps:          0       0       0       0       0
+   700 ;;      Totals:         0       0       0       0       0
+   701 ;;Total ram usage:        0 bytes
+   702 ;; Hardware stack levels used:    1
+   703 ;; This function calls:
+   704 ;;		Nothing
+   705 ;; This function is called by:
+   706 ;;		_main
+   707 ;; This function uses a non-reentrant model
+   708 ;;
+   709                           psect	text139
+   710                           	file	"E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   711                           	line	54
+   712                           	global	__size_of_motion_Stop
+   713  0007                     	__size_of_motion_Stop	equ	__end_of_motion_Stop-_motion_Stop
+   714                           	
+   715  072B                     _motion_Stop:	
+   716                           	opt	stack 7
+   717                           ; Regs used in _motion_Stop: []
+   718                           	line	55
+   719                           	
+   720  072B                     l1787:	
+   721                           ;test1.c: 55: RC4 = 0;
+   722  072B  1283               	bcf	status, 5	;RP0=0, select bank0
+   723  072C  1303               	bcf	status, 6	;RP1=0, select bank0
+   724  072D  1207               	bcf	(60/8),(60)&7
+   725                           	line	56
+   726                           ;test1.c: 56: RC5 = 0;
+   727  072E  1287               	bcf	(61/8),(61)&7
+   728                           	line	57
+   729                           ;test1.c: 57: RC6 = 0;
+   730  072F  1307               	bcf	(62/8),(62)&7
+   731                           	line	58
+   732                           ;test1.c: 58: RC7 = 0;
+   733  0730  1387               	bcf	(63/8),(63)&7
+   734                           	line	59
+   735                           	
+   736  0731                     l711:	
+   737  0731  0008               	return
+   738                           	opt stack 0
+   739                           GLOBAL	__end_of_motion_Stop
+   740  0732                     	__end_of_motion_Stop:
+   741 ;; =============== function _motion_Stop ends ============
+   742                           
+   743                           	signat	_motion_Stop,88
+   744                           	global	_motion_Forward
+   745                           psect	text140,local,class=CODE,delta=2
+   746                           global __ptext140
+   747  0724                     __ptext140:
+   748                           
+   749 ;; *************** function _motion_Forward *****************
+   750 ;; Defined at:
+   751 ;;		line 47 in file "E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   752 ;; Parameters:    Size  Location     Type
+   753 ;;		None
+   754 ;; Auto vars:     Size  Location     Type
+   755 ;;		None
+   756 ;; Return value:  Size  Location     Type
+   757 ;;		None               void
+   758 ;; Registers used:
+   759 ;;		None
+   760 ;; Tracked objects:
+   761 ;;		On entry : 0/0
+   762 ;;		On exit  : 0/0
+   763 ;;		Unchanged: 0/0
+   764 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   765 ;;      Params:         0       0       0       0       0
+   766 ;;      Locals:         0       0       0       0       0
+   767 ;;      Temps:          0       0       0       0       0
+   768 ;;      Totals:         0       0       0       0       0
+   769 ;;Total ram usage:        0 bytes
+   770 ;; Hardware stack levels used:    1
+   771 ;; This function calls:
+   772 ;;		Nothing
+   773 ;; This function is called by:
+   774 ;;		_main
+   775 ;; This function uses a non-reentrant model
+   776 ;;
+   777                           psect	text140
+   778                           	file	"E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   779                           	line	47
+   780                           	global	__size_of_motion_Forward
+   781  0007                     	__size_of_motion_Forward	equ	__end_of_motion_Forward-_motion_Forward
+   782                           	
+   783  0724                     _motion_Forward:	
+   784                           	opt	stack 7
+   785                           ; Regs used in _motion_Forward: []
+   786                           	line	48
+   787                           	
+   788  0724                     l1785:	
+   789                           ;test1.c: 48: RC4 = 0;
+   790  0724  1283               	bcf	status, 5	;RP0=0, select bank0
+   791  0725  1303               	bcf	status, 6	;RP1=0, select bank0
+   792  0726  1207               	bcf	(60/8),(60)&7
+   793                           	line	49
+   794                           ;test1.c: 49: RC5 = 1;
+   795  0727  1687               	bsf	(61/8),(61)&7
+   796                           	line	50
+   797                           ;test1.c: 50: RC6 = 1;
+   798  0728  1707               	bsf	(62/8),(62)&7
+   799                           	line	51
+   800                           ;test1.c: 51: RC7 = 0;
+   801  0729  1387               	bcf	(63/8),(63)&7
+   802                           	line	52
+   803                           	
+   804  072A                     l708:	
+   805  072A  0008               	return
+   806                           	opt stack 0
+   807                           GLOBAL	__end_of_motion_Forward
+   808  072B                     	__end_of_motion_Forward:
+   809 ;; =============== function _motion_Forward ends ============
+   810                           
+   811                           	signat	_motion_Forward,88
+   812                           	global	_delay_10ms
+   813                           psect	text141,local,class=CODE,delta=2
+   814                           global __ptext141
+   815  0782                     __ptext141:
+   816                           
+   817 ;; *************** function _delay_10ms *****************
+   818 ;; Defined at:
+   819 ;;		line 85 in file "E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   820 ;; Parameters:    Size  Location     Type
+   821 ;;  n               2    0[COMMON] unsigned int 
+   822 ;; Auto vars:     Size  Location     Type
+   823 ;;		None
+   824 ;; Return value:  Size  Location     Type
+   825 ;;		None               void
+   826 ;; Registers used:
+   827 ;;		wreg, status,2
+   828 ;; Tracked objects:
+   829 ;;		On entry : 0/0
+   830 ;;		On exit  : 0/0
+   831 ;;		Unchanged: 0/0
+   832 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   833 ;;      Params:         2       0       0       0       0
+   834 ;;      Locals:         0       0       0       0       0
+   835 ;;      Temps:          0       0       0       0       0
+   836 ;;      Totals:         2       0       0       0       0
+   837 ;;Total ram usage:        2 bytes
+   838 ;; Hardware stack levels used:    1
+   839 ;; This function calls:
+   840 ;;		Nothing
+   841 ;; This function is called by:
+   842 ;;		_main
+   843 ;;		_motion_LeftTurn
+   844 ;;		_motion_RightTurn
+   845 ;; This function uses a non-reentrant model
+   846 ;;
+   847                           psect	text141
+   848                           	file	"E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   849                           	line	85
+   850                           	global	__size_of_delay_10ms
+   851  0024                     	__size_of_delay_10ms	equ	__end_of_delay_10ms-_delay_10ms
+   852                           	
+   853  0782                     _delay_10ms:	
+   854                           	opt	stack 6
+   855                           ; Regs used in _delay_10ms: [wreg+status,2]
+   856                           	line	86
+   857                           	
+   858  0782                     l1775:	
+   859                           ;test1.c: 86: OPTION_REG = 0x07;
+   860  0782  3007               	movlw	(07h)
+   861  0783  1683               	bsf	status, 5	;RP0=1, select bank1
+   862  0784  1303               	bcf	status, 6	;RP1=0, select bank1
+   863  0785  0081               	movwf	(129)^080h	;volatile
+   864                           	line	87
+   865                           	
+   866  0786                     l1777:	
+   867                           ;test1.c: 87: T0IF = 0;
+   868  0786  110B               	bcf	(90/8),(90)&7
+   869                           	line	89
+   870                           	
+   871  0787                     l1779:	
+   872                           ;test1.c: 89: for (i=0; i<n; i++) {
+   873  0787  01F6               	clrf	(_i)
+   874  0788  01F7               	clrf	(_i+1)
+   875  0789  2F9A               	goto	l720
+   876                           	
+   877  078A                     l721:	
+   878                           	line	90
+   879                           	
+   880  078A                     l1781:	
+   881                           ;test1.c: 90: TMR0 = 148;
+   882  078A  3094               	movlw	(094h)
+   883  078B  1283               	bcf	status, 5	;RP0=0, select bank0
+   884  078C  1303               	bcf	status, 6	;RP1=0, select bank0
+   885  078D  0081               	movwf	(1)	;volatile
+   886                           	line	91
+   887                           ;test1.c: 91: while(!T0IF);
+   888  078E  2F8F               	goto	l722
+   889                           	
+   890  078F                     l723:	
+   891                           	
+   892  078F                     l722:	
+   893  078F  1D0B               	btfss	(90/8),(90)&7
+   894  0790  2F92               	goto	u11
+   895  0791  2F93               	goto	u10
+   896  0792                     u11:
+   897  0792  2F8F               	goto	l722
+   898  0793                     u10:
+   899                           	
+   900  0793                     l724:	
+   901                           	line	92
+   902                           ;test1.c: 92: T0IF = 0;
+   903  0793  110B               	bcf	(90/8),(90)&7
+   904                           	line	89
+   905                           	
+   906  0794                     l1783:	
+   907  0794  3001               	movlw	low(01h)
+   908  0795  07F6               	addwf	(_i),f
+   909  0796  1803               	skipnc
+   910  0797  0AF7               	incf	(_i+1),f
+   911  0798  3000               	movlw	high(01h)
+   912  0799  07F7               	addwf	(_i+1),f
+   913                           	
+   914  079A                     l720:	
+   915  079A  0871               	movf	(delay_10ms@n+1),w
+   916  079B  0277               	subwf	(_i+1),w
+   917  079C  1D03               	skipz
+   918  079D  2FA0               	goto	u25
+   919  079E  0870               	movf	(delay_10ms@n),w
+   920  079F  0276               	subwf	(_i),w
+   921  07A0                     u25:
+   922  07A0  1C03               	skipc
+   923  07A1  2FA3               	goto	u21
+   924  07A2  2FA4               	goto	u20
+   925  07A3                     u21:
+   926  07A3  2F8A               	goto	l1781
+   927  07A4                     u20:
+   928  07A4  2FA5               	goto	l726
+   929                           	
+   930  07A5                     l725:	
+   931                           	line	94
+   932                           	
+   933  07A5                     l726:	
+   934  07A5  0008               	return
+   935                           	opt stack 0
+   936                           GLOBAL	__end_of_delay_10ms
+   937  07A6                     	__end_of_delay_10ms:
+   938 ;; =============== function _delay_10ms ends ============
+   939                           
+   940                           	signat	_delay_10ms,4216
+   941                           	global	_init
+   942                           psect	text142,local,class=CODE,delta=2
+   943                           global __ptext142
+   944  0732                     __ptext142:
+   945                           
+   946 ;; *************** function _init *****************
+   947 ;; Defined at:
+   948 ;;		line 34 in file "E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   949 ;; Parameters:    Size  Location     Type
+   950 ;;		None
+   951 ;; Auto vars:     Size  Location     Type
+   952 ;;		None
+   953 ;; Return value:  Size  Location     Type
+   954 ;;		None               void
+   955 ;; Registers used:
+   956 ;;		None
+   957 ;; Tracked objects:
+   958 ;;		On entry : 0/0
+   959 ;;		On exit  : 0/0
+   960 ;;		Unchanged: 0/0
+   961 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   962 ;;      Params:         0       0       0       0       0
+   963 ;;      Locals:         0       0       0       0       0
+   964 ;;      Temps:          0       0       0       0       0
+   965 ;;      Totals:         0       0       0       0       0
+   966 ;;Total ram usage:        0 bytes
+   967 ;; Hardware stack levels used:    1
+   968 ;; This function calls:
+   969 ;;		Nothing
+   970 ;; This function is called by:
+   971 ;;		_main
+   972 ;; This function uses a non-reentrant model
+   973 ;;
+   974                           psect	text142
+   975                           	file	"E:\#Programming\Electronics\MPLAB\PIC_ObsAvoCar\m2_CarMotion\test1.c"
+   976                           	line	34
+   977                           	global	__size_of_init
+   978  000E                     	__size_of_init	equ	__end_of_init-_init
+   979                           	
+   980  0732                     _init:	
+   981                           	opt	stack 7
+   982                           ; Regs used in _init: []
+   983                           	line	35
+   984                           	
+   985  0732                     l1773:	
+   986                           ;test1.c: 35: TRISC4 = 0;
+   987  0732  1683               	bsf	status, 5	;RP0=1, select bank1
+   988  0733  1303               	bcf	status, 6	;RP1=0, select bank1
+   989  0734  1207               	bcf	(1084/8)^080h,(1084)&7
+   990                           	line	36
+   991                           ;test1.c: 36: TRISC5 = 0;
+   992  0735  1287               	bcf	(1085/8)^080h,(1085)&7
+   993                           	line	37
+   994                           ;test1.c: 37: TRISC6 = 0;
+   995  0736  1307               	bcf	(1086/8)^080h,(1086)&7
+   996                           	line	38
+   997                           ;test1.c: 38: TRISC7 = 0;
+   998  0737  1387               	bcf	(1087/8)^080h,(1087)&7
+   999                           	line	39
+  1000                           ;test1.c: 39: TRISD1 = 0;
+  1001  0738  1088               	bcf	(1089/8)^080h,(1089)&7
+  1002                           	line	40
+  1003                           ;test1.c: 40: RC4 = 0;
+  1004  0739  1283               	bcf	status, 5	;RP0=0, select bank0
+  1005  073A  1303               	bcf	status, 6	;RP1=0, select bank0
+  1006  073B  1207               	bcf	(60/8),(60)&7
+  1007                           	line	41
+  1008                           ;test1.c: 41: RC5 = 0;
+  1009  073C  1287               	bcf	(61/8),(61)&7
+  1010                           	line	42
+  1011                           ;test1.c: 42: RC6 = 0;
+  1012  073D  1307               	bcf	(62/8),(62)&7
+  1013                           	line	43
+  1014                           ;test1.c: 43: RC7 = 0;
+  1015  073E  1387               	bcf	(63/8),(63)&7
+  1016                           	line	44
+  1017                           	
+  1018  073F                     l705:	
+  1019  073F  0008               	return
+  1020                           	opt stack 0
+  1021                           GLOBAL	__end_of_init
+  1022  0740                     	__end_of_init:
+  1023 ;; =============== function _init ends ============
+  1024                           
+  1025                           	signat	_init,88
+  1026                           psect	text143,local,class=CODE,delta=2
+  1027                           global __ptext143
+  1028  0000                     __ptext143:
+  1029                           	global	btemp
+  1030  007E                     	btemp set 07Eh
+  1031                           
+  1032                           	DABS	1,126,2	;btemp
+  1033                           	global	wtemp0
+  1034  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.82 build 9453 
+Symbol Table                                                                                   Tue Dec 10 22:28:54 2019
+
+                        _i 0076                         _RD 0C60                         u10 0793  
+                       u11 0792                         u20 07A4                         u21 07A3  
+                       u25 07A0                         _WR 0C61            _motion_LeftTurn 0740  
+                      l700 07FC                        l701 07FD                        l702 07FD  
+                      l711 0731                        l720 079A                        l705 073F  
+                      l721 078A                        l722 078F                        l714 0760  
+                      l723 078F                        l724 0793                        l708 072A  
+                      l725 07A5                        l717 0781                        l726 07A5  
+                      l699 07AF                        _GIE 005F                        _RD1 0041  
+                      _RC4 003C                        _RC5 003D                        _RC6 003E  
+                      _RC7 003F                       l2651 075A                       l1773 0732  
+                     l1781 078A                       l2653 075D                       l2661 0767  
+                     l1783 0794                       l1775 0782                       l2655 075E  
+                     l2647 0740                       l2663 077B                       l2671 07A6  
+                     l1777 0786                       l1785 0724                       l2657 075F  
+                     l2649 0746                       l2665 077E                       l2681 07BE  
+                     l2673 07AB                       l1779 0787                       l1787 072B  
+                     l2667 077F                       l2659 0761                       l2691 07E0  
+                     l2683 07CC                       l2675 07AF                       l2669 0780  
+                     l2693 07E9                       l2685 07CF                       l2677 07B2  
+                     l2695 07F2                       l2687 07D4                       l2679 07BB  
+                     l2689 07DD                       _T0IF 005A                       u2245 074B  
+                     u2255 076C                       _TMR0 0001                       _WREN 0C62  
+                     _main 07A6                       _init 0732                       btemp 007E  
+         _motion_RightTurn 0761                       start 0000                      ?_main 0070  
+                    ?_init 0070                      _EEADR 010D                      _CARRY 0018  
+                    status 0003                      wtemp0 007E    __end_of_motion_LeftTurn 0761  
+             __end_of_main 0800               __end_of_init 0740                     ??_main 0076  
+                   ??_init 0070                     _EEDATA 010C                     _EECON1 018C  
+                   _EECON2 018D                     _TRISD1 0441                     _TRISC4 043C  
+                   _TRISC5 043D                     _TRISC6 043E                     _TRISC7 043F  
+             ?_motion_Stop 0070           ?_motion_LeftTurn 0072             __pcstackCOMMON 0070  
+ __end_of_motion_RightTurn 0782    __size_of_motion_Forward 0007                 _delay_10ms 0782  
+               __pmaintext 07A6       motion_LeftTurn@angle 0072       __size_of_motion_Stop 0007  
+     end_of_initialization 0720                ?_delay_10ms 0070             _motion_Forward 0724  
+      __size_of_delay_10ms 0024          ?_motion_RightTurn 0072        start_initialization 071E  
+   __end_of_motion_Forward 072B         ??_motion_RightTurn 0074   __size_of_motion_LeftTurn 0021  
+              __pbssCOMMON 0076            ?_motion_Forward 0070                  __ptext140 0724  
+                __ptext141 0782                  __ptext142 0732                  __ptext143 0000  
+                __ptext136 0000                  __ptext137 0761                  __ptext138 0740  
+                __ptext139 072B               ??_delay_10ms 0072              ??_motion_Stop 0070  
+       __end_of_delay_10ms 07A6          ??_motion_LeftTurn 0074        __end_of_motion_Stop 0732  
+              delay_10ms@n 0070              __size_of_main 005A              __size_of_init 000E  
+__size_of_motion_RightTurn 0021      motion_RightTurn@angle 0072           ??_motion_Forward 0070  
+              _motion_Stop 072B                 _OPTION_REG 0081  
